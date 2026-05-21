@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-[#07111f] text-white overflow-x-hidden">
+<html lang="en" class="bg-[#17080a] text-white overflow-x-hidden">
 
 <head>
     <meta charset="UTF-8">
@@ -49,22 +49,22 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.keyauth.cc/v3/scripts/animate.min.css" />
     <style>
         :root {
-            --surface-main: #07111f;
-            --surface-panel: #0f1b2d;
-            --surface-soft: #14243b;
-            --border-strong: rgba(124, 166, 255, 0.18);
-            --text-soft: #a9bad2;
-            --accent-cyan: #52e5c7;
-            --accent-blue: #5b8cff;
-            --accent-gold: #f6c35b;
+            --surface-main: #17080a;
+            --surface-panel: #271014;
+            --surface-soft: #35161c;
+            --border-strong: rgba(255, 109, 109, 0.22);
+            --text-soft: #d6b4b4;
+            --accent-cyan: #ff7a7a;
+            --accent-blue: #cf1d1d;
+            --accent-gold: #ffb36b;
         }
 
         body {
             min-height: 100vh;
             background:
-                radial-gradient(circle at top left, rgba(82, 229, 199, 0.14), transparent 32%),
-                radial-gradient(circle at top right, rgba(91, 140, 255, 0.16), transparent 36%),
-                linear-gradient(180deg, #08111f 0%, #07111f 52%, #0b1526 100%);
+                radial-gradient(circle at top left, rgba(255, 122, 122, 0.16), transparent 32%),
+                radial-gradient(circle at top right, rgba(207, 29, 29, 0.18), transparent 36%),
+                linear-gradient(180deg, #120608 0%, #17080a 52%, #210c11 100%);
         }
 
         .landing-shell {
@@ -92,6 +92,41 @@
         .accent-line {
             background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), var(--accent-gold));
         }
+
+        .bg-blue-600,
+        .bg-blue-700 {
+            background-color: #b71717 !important;
+        }
+
+        .hover\:bg-blue-800:hover,
+        .hover\:bg-blue-700:hover {
+            background-color: #8c1212 !important;
+        }
+
+        .border-blue-700 {
+            border-color: #b71717 !important;
+        }
+
+        .text-blue-500,
+        .text-blue-600,
+        .text-sky-400 {
+            color: #ff7a7a !important;
+        }
+
+        .from-sky-400,
+        .to-blue-600 {
+            --tw-gradient-from: #ff8f8f var(--tw-gradient-from-position) !important;
+            --tw-gradient-to: rgb(255 143 143 / 0) var(--tw-gradient-to-position) !important;
+            --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+        }
+
+        .to-blue-600 {
+            --tw-gradient-to: #c51515 var(--tw-gradient-to-position) !important;
+        }
+
+        .glass-panel {
+            background: rgba(39, 16, 20, 0.84);
+        }
     </style>
 </head>
 
@@ -100,7 +135,7 @@
         <nav class="px-4 lg:px-6 py-4 mb-10">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="./" class="flex items-center">
-                    <img src="/wantedauth-logo.svg" class="mr-3 h-12 mt-2"
+                    <img src="/wantedauth-logo.svg" class="mr-3 h-16 mt-1"
                         alt="WantedAuth Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
