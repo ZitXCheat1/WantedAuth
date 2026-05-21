@@ -23,7 +23,7 @@ function add($name, $data, $authed, $secret = null)
         $query = mysql\query("INSERT INTO `vars`(`varid`, `msg`, `app`, `authed`) VALUES (?, ?, ?, ?)",[$name, $data,$secret ?? $_SESSION['app'], $authed]);
         if ($query->affected_rows > 0) {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthVars:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthVars:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
@@ -34,9 +34,9 @@ function deleteAll($secret = null)
 {
         $query = mysql\query("DELETE FROM `vars` WHERE `app` = ?",[$secret ?? $_SESSION['app']]);
         if ($query->affected_rows > 0) {
-                cache\purgePattern('KeyAuthVar:' . ($secret ?? $_SESSION['app']));
+                cache\purgePattern('WantedAuthVar:' . ($secret ?? $_SESSION['app']));
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthVars:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthVars:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
@@ -49,9 +49,9 @@ function deleteSingular($var, $secret = null)
 
         $query = mysql\query("DELETE FROM `vars` WHERE `app` = ? AND `varid` = ?",[$secret ?? $_SESSION['app'], $var]);
         if ($query->affected_rows > 0) {
-                cache\purge('KeyAuthVar:' . ($secret ?? $_SESSION['app']) . ':' . $var);
+                cache\purge('WantedAuthVar:' . ($secret ?? $_SESSION['app']) . ':' . $var);
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthVars:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthVars:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
@@ -70,9 +70,9 @@ function edit($name, $data, $authed, $secret = null)
 
         $query = mysql\query("UPDATE `vars` SET `msg` = ?, `authed` = ? WHERE `varid` = ? AND `app` = ?",[$data, $authed, $name, $secret ?? $_SESSION['app']]);
         if ($query->affected_rows > 0) {
-                cache\purge('KeyAuthVar:' . ($secret ?? $_SESSION['app']) . ':' . $name);
+                cache\purge('WantedAuthVar:' . ($secret ?? $_SESSION['app']) . ':' . $name);
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthVars:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthVars:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {

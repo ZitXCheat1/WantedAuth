@@ -56,7 +56,7 @@ switch ($_POST['type'] ?? $_GET['type']) {
         
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="KeyAuthUsers.json"');
+        header('Content-Disposition: attachment; filename="WantedAuthUsers.json"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
@@ -84,7 +84,7 @@ switch ($_POST['type'] ?? $_GET['type']) {
         
         header('Content-Description: File Transfer');
         header('Content-Type: application/json'); // Set the content type to JSON
-        header('Content-Disposition: attachment; filename="KeyAuthKeys.json"');
+        header('Content-Disposition: attachment; filename="WantedAuthKeys.json"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
@@ -121,7 +121,7 @@ switch ($_POST['type'] ?? $_GET['type']) {
         
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="KeyAuthUserLogs.json"');
+        header('Content-Disposition: attachment; filename="WantedAuthUserLogs.json"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');
@@ -157,7 +157,7 @@ switch ($_POST['type'] ?? $_GET['type']) {
         
         header('Content-Description: File Transfer');
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename="KeyAuthAuditLogs.json"');
+        header('Content-Disposition: attachment; filename="WantedAuthAuditLogs.json"');
         header('Expires: 0');
         header('Cache-Control: must-revalidate');
         header('Pragma: public');

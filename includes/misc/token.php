@@ -12,7 +12,7 @@ function IsAssignedToken($credential, $type, $secret = null, $return_token = fal
 
 	if ($type !== "user" && $type !== "license") { return "invalid_type"; }
 
-	$row = cache\fetch('KeyAuthUserTokenCheck:' . $secret ?? $_SESSION["app"] . ':' . $credential, "SELECT `token` FROM `tokens` WHERE `app` = ? AND `type` = ? AND `assigned` = ?", [$secret ?? $_SESSION["app"], $type, $credential], 0);
+	$row = cache\fetch('WantedAuthUserTokenCheck:' . $secret ?? $_SESSION["app"] . ':' . $credential, "SELECT `token` FROM `tokens` WHERE `app` = ? AND `type` = ? AND `assigned` = ?", [$secret ?? $_SESSION["app"], $type, $credential], 0);
 
 	if ($row === "not_found") {
 		return false;
@@ -62,7 +62,7 @@ function ModifyUserToken($credential, $type, $token = null, $username = null,  $
 			}
 			else {
 				
-				cache\purge('KeyAuthUserTokens:' . $secret . ':' . $token);
+				cache\purge('WantedAuthUserTokens:' . $secret . ':' . $token);
 
 				return "success";
 			}
@@ -76,7 +76,7 @@ function ModifyUserToken($credential, $type, $token = null, $username = null,  $
 			}
 			else {
 
-				cache\purge('KeyAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
+				cache\purge('WantedAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
 
 				return "success";
 			}
@@ -89,7 +89,7 @@ function checktoken($function, $token, $secret, $username = NULL, $token_hash = 
 
 	$token = etc\sanitize($token);
 
-	$row = cache\fetch('KeyAuthUserTokens:'.$secret.':'.$token ,"SELECT * FROM `tokens` WHERE `token` = ? AND `app` = ?", [$token, $secret], 0);
+	$row = cache\fetch('WantedAuthUserTokens:'.$secret.':'.$token ,"SELECT * FROM `tokens` WHERE `token` = ? AND `app` = ?", [$token, $secret], 0);
 
 	if ($row === "not_found") {
 		return "invalid_token";
@@ -110,7 +110,7 @@ function checktoken($function, $token, $secret, $username = NULL, $token_hash = 
 			if (is_null($row["hash"]))
 			{
 				mysql\query("UPDATE `tokens` SET `hash` = ? WHERE `token` = ? AND `app` = ?", [$token_hash, $token, $secret]);
-				cache\purge('KeyAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
+				cache\purge('WantedAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
 			}
 
 			return 'success';
@@ -132,7 +132,7 @@ function addtokenblacklist($token, $reason, $secret = null) {
 	$reason = etc\sanitize($reason);
 
 	$query = mysql\query("UPDATE `tokens` SET `reason` = ?, `status` = ? WHERE `token` = ? AND `app` = ?", [$reason, 1, $token, $secret ?? $_SESSION["app"]]);
-	cache\purge('KeyAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
+	cache\purge('WantedAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
 
 
 	if ($query->affected_rows < 0) {
@@ -150,7 +150,7 @@ function removetokenblacklist($token, $secret = null) {
 	$token = etc\sanitize($token);
 
 	$query = mysql\query("UPDATE `tokens` SET `reason` = ?, `status` = ? WHERE `token` = ? AND `app` = ?", ["", 0, $token, $secret ?? $_SESSION["app"]]);
-	cache\purge('KeyAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
+	cache\purge('WantedAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
 
 	if ($query->affected_rows < 0) {
 		return "failed";
@@ -167,7 +167,7 @@ function resettokenhash($token, $secret = null) {
 	$token = etc\sanitize($token);
 
 	$query = mysql\query("UPDATE `tokens` SET `hash` = ? WHERE `token` = ? AND `app` = ?", [NULL, $token, $secret]);
-	cache\purge('KeyAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
+	cache\purge('WantedAuthUserTokens:'.$secret ?? $_SESSION["app"] . ':' . $token);
 
 	if ($query->affected_rows < 0) {
 		return "failed";

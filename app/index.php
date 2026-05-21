@@ -80,12 +80,12 @@ if (!$_SESSION['app']) // no app selected yet
     <script src="https://cdn.keyauth.cc/dashboard/unixtolocal.js"></script>
 
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link rel="shortcut icon" type="image/jpg" href="https://cdn.keyauth.cc/front/assets/img/favicon.png">
+    <link rel="shortcut icon" type="image/jpg" href="/wantedauth-logo.svg">
 
     <link href="https://cdn.keyauth.cc/v2/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet"
         type="text/css" />
 
-    <title>KeyAuth - Open Source Auth</title>
+    <title>WantedAuth - Open Source Auth</title>
 
     <script>
     if (window.history.replaceState) {

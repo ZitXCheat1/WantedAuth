@@ -12,7 +12,7 @@ function deleteMessage($id, $secret = null)
 
         $query = mysql\query("SELECT `channel` FROM `chatmsgs` WHERE `app` = ? AND `id` = ?",[$secret ?? $_SESSION['app'], $id]);
         $row = mysqli_fetch_array($query->result);
-        cache\purge('KeyAuthChatMsgs:' . ($secret ?? $_SESSION['app']) . ':' . $row['channel']);
+        cache\purge('WantedAuthChatMsgs:' . ($secret ?? $_SESSION['app']) . ':' . $row['channel']);
 
         $query = mysql\query("DELETE FROM `chatmsgs` WHERE `app` = ? AND `id` = ?",[$secret ?? $_SESSION['app'], $id]);
         if ($query->affected_rows > 0) {
@@ -33,7 +33,7 @@ function muteUser($user, $time, $secret = null)
         $query = mysql\query("INSERT INTO `chatmutes` (`user`, `time`, `app`) VALUES (?, ?, ?)",[$user, $time, $secret ?? $_SESSION['app']]);
         if ($query->affected_rows > 0) {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthMutes:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthMutes:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
@@ -48,7 +48,7 @@ function unMuteUser($user, $secret = null)
 
         if ($query->affected_rows > 0) {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthMutes:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthMutes:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
@@ -62,7 +62,7 @@ function clearChannel($channel, $secret = null)
         $query = mysql\query("DELETE FROM `chatmsgs` WHERE `app` = ? AND `channel` = ?",[$secret ?? $_SESSION['app'], $channel]);
 
         if ($query->affected_rows > 0) {
-                cache\purge('KeyAuthChatMsgs:' . ($secret ?? $_SESSION['app']) . ':' . $channel);
+                cache\purge('WantedAuthChatMsgs:' . ($secret ?? $_SESSION['app']) . ':' . $channel);
                 return 'success';
         } else {
                 return 'failure';
@@ -77,7 +77,7 @@ function createChannel($name, $delay, $secret = null)
 
         if ($query->affected_rows > 0) {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthChats:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthChats:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
@@ -92,9 +92,9 @@ function deleteChannel($name, $secret = null)
 
         if ($query->affected_rows > 0) {
                 $query = mysql\query("DELETE FROM `chatmsgs` WHERE `app` = ? AND `channel` = ?",[$secret ?? $_SESSION['app'], $name]);
-                cache\purge('KeyAuthChatMsgs:' . ($secret ?? $_SESSION['app']) . ':' . $name);
+                cache\purge('WantedAuthChatMsgs:' . ($secret ?? $_SESSION['app']) . ':' . $name);
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthChats:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthChats:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {

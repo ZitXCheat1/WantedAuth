@@ -123,7 +123,7 @@ if (isset($_POST['savevar'])) {
     $resp = misc\variable\edit($_POST['variable'], $_POST['msg'], $authed);
     switch ($resp) {
         case 'success':
-            misc\cache\purge('KeyAuthVar:' . $_SESSION['app'] . ':' . $_POST['variable']);
+            misc\cache\purge('WantedAuthVar:' . $_SESSION['app'] . ':' . $_POST['variable']);
             dashboard\primary\success("Successfully edited variable!");
             break;
     }

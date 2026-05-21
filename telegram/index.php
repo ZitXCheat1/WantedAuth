@@ -1,4 +1,4 @@
 <?php
-        header("Location: https://t.me/KeyAuth");
+        header("Location: https://t.me/WantedAuth");
         exit();
 ?>

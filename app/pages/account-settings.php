@@ -19,7 +19,7 @@ else
     $code_2factor = $row["googleAuthCode"];
 }
 
-$google_QR_Code = $gauth->getQRCodeGoogleUrl($_SESSION['username'], $code_2factor, 'KeyAuth');
+$google_QR_Code = $gauth->getQRCodeGoogleUrl($_SESSION['username'], $code_2factor, 'WantedAuth');
 
 $query = misc\mysql\query("SELECT * FROM `accounts` WHERE `username` = ?", [$_SESSION['username']]);
 

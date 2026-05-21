@@ -22,7 +22,7 @@ function vpnCheck($ipaddr)
                         // Message
                         "content" => "<@1131334631350878268> IP checking is rate limited",
                         // Username
-                        "username" => "KeyAuth Logs",
+                        "username" => "WantedAuth Logs",
                 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
                 $ch = curl_init($logwebhook);
                 curl_setopt($ch, CURLOPT_HTTPHEADER, array(
@@ -48,7 +48,7 @@ function getIp()
 function getSession($sessionid, $secret)
 {
     // had to name it 'state' instead of 'session' because Redis wouldn't save key with 'session' in it
-    $row = cache\fetch('KeyAuthState:' . $secret . ':' . $sessionid, "SELECT * FROM `sessions` WHERE `id` = ? AND `app` = ? AND `expiry` > ?", [$sessionid, $secret, time()], 0, NULL, "ssi");
+    $row = cache\fetch('WantedAuthState:' . $secret . ':' . $sessionid, "SELECT * FROM `sessions` WHERE `id` = ? AND `app` = ? AND `expiry` > ?", [$sessionid, $secret, time()], 0, NULL, "ssi");
     if ($row == "not_found") {
         die(json_encode(array(
             "success" => false,

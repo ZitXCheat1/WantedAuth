@@ -279,7 +279,7 @@ if (isset($_POST['updatesettings']))
 
     if ($query->affected_rows > 0) 
     {
-        misc\cache\purge('KeyAuthApp:' . $_SESSION["name"] . ':' . $_SESSION['ownerid']);
+        misc\cache\purge('WantedAuthApp:' . $_SESSION["name"] . ':' . $_SESSION['ownerid']);
         dashboard\primary\success("Successfully set settings!");
     } 
     else 

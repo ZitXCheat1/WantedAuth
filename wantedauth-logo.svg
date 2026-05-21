@@ -1,0 +1,6 @@
+<svg width="260" height="72" viewBox="0 0 260 72" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WantedAuth">
+  <rect width="260" height="72" rx="16" fill="#09090D"/>
+  <rect x="16" y="14" width="44" height="44" rx="12" fill="#2563EB"/>
+  <path d="M26 25L32.2 47H37.2L40.1 35.6L43.1 47H48.1L54 25H48.8L45.2 39.6L41.6 25H38.6L34.9 39.6L31.4 25H26Z" fill="white"/>
+  <text x="72" y="44" fill="white" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="0">WantedAuth</text>
+</svg>

@@ -128,7 +128,7 @@ if (isset($_POST['savewebhook'])) {
     misc\mysql\query("UPDATE `webhooks` SET `baselink` = ?,`useragent` = ? WHERE `webid` = ? AND `app` = ?",[$baselink, $useragent, $webhook, $_SESSION['app']]);
 
     dashboard\primary\success("Successfully Updated Settings!");
-    misc\cache\purge('KeyAuthWebhook:' . $_SESSION['app'] . ':' . $webhook);
+    misc\cache\purge('WantedAuthWebhook:' . $_SESSION['app'] . ':' . $webhook);
 }
 ?>
 
@@ -213,7 +213,7 @@ if (isset($_POST['savewebhook'])) {
                                                     placeholder=" " autocomplete="on">
                                                 <label for="useragent"
                                                     class="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-[#0f0f17] px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">User
-                                                    Agent (Default is KeyAuth)</label>
+                                                    Agent (Default is WantedAuth)</label>
                                             </div>
                                             <div class="flex items-center">
                                                 <input checked id="authed" type="checkbox" name="authed"

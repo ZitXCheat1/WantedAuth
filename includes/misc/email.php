@@ -431,7 +431,7 @@ function send($username, $email, $content, $subject) {
                     <tr>
                       <td class="email-masthead" style="text-align: center";>
                         <a href="https://keyauth.cc" class="f-fallback email-masthead_name">
-                        <img src="https://cdn.keyauth.cc/v2/assets/media/logos/logo-1-white.png" width="180" height="100">
+                        <img src="/wantedauth-logo.svg" width="180" height="100">
                       </a>
                       </td>
                     </tr>
@@ -472,7 +472,7 @@ function send($username, $email, $content, $subject) {
 
         $m = new \SimpleEmailServiceMessage();
         $m->addTo("{$username} <{$email}>");
-        $m->setFrom('KeyAuth <noreply@keyauth.cc>');
+        $m->setFrom('WantedAuth <noreply@keyauth.cc>');
         $m->setSubject("{$subject}");
         $m->setMessageFromString($content, $content);
         

@@ -113,12 +113,12 @@ if (isset($_POST['rename_app'])) {
         $oldName = $_SESSION['name'];
         $_SESSION['name'] = $appname;
         dashboard\primary\success("Successfully Renamed App!");
-        misc\cache\purge('KeyAuthApp:' . $oldName . ':' . $_SESSION['ownerid']);
+        misc\cache\purge('WantedAuthApp:' . $oldName . ':' . $_SESSION['ownerid']);
         if ($_SESSION['role'] == "seller") {
             $query = misc\mysql\query("SELECT `customDomain`, `sellerkey`, `customDomainAPI` FROM `apps` WHERE `owner` = ? AND `name` = ?", [$_SESSION['username'], $appname]);
             $row = mysqli_fetch_array($query->result);
-            misc\cache\purge('KeyAuthAppPanel:' . $row['customDomain']);
-            misc\cache\purge('KeyAuthAppSeller:' . $row['sellerkey']);
+            misc\cache\purge('WantedAuthAppPanel:' . $row['customDomain']);
+            misc\cache\purge('WantedAuthAppSeller:' . $row['sellerkey']);
         }
         $_SESSION["selectedapp"] = $appname;
     } else {
@@ -132,7 +132,7 @@ if (isset($_POST['pauseapp'])) {
         echo '<meta http-equiv="refresh" content="2">';
         return;
     }
-    misc\cache\purgePattern('KeyAuthSubs:' . $_SESSION["app"]);
+    misc\cache\purgePattern('WantedAuthSubs:' . $_SESSION["app"]);
     misc\app\pause();
     dashboard\primary\success("Paused application and any active subscriptions!");
 }
@@ -142,7 +142,7 @@ if (isset($_POST['unpauseapp'])) {
         echo '<meta http-equiv="refresh" content="2">';
         return;
     }
-    misc\cache\purgePattern('KeyAuthSubs:' . $_SESSION["app"]);
+    misc\cache\purgePattern('WantedAuthSubs:' . $_SESSION["app"]);
     misc\app\unpause();
     dashboard\primary\success("Unpaused application and any paused subscriptions!");
 }
@@ -174,12 +174,12 @@ if (isset($_POST['refreshapp'])) {
         misc\mysql\query("UPDATE `vars` SET `app` = ? WHERE `app` = ?", [$new_secret, $_SESSION['app']]);
         misc\mysql\query("UPDATE `webhooks` SET `app` = ? WHERE `app` = ?", [$new_secret, $_SESSION['app']]);
         $_SESSION['app'] = $new_secret;
-        misc\cache\purge('KeyAuthApp:' . $_SESSION['name'] . ':' . $_SESSION['ownerid']);
+        misc\cache\purge('WantedAuthApp:' . $_SESSION['name'] . ':' . $_SESSION['ownerid']);
         if ($_SESSION['role'] == "seller" || $_SESSION['role'] == "developer") {
             $query = misc\mysql\query("SELECT `sellerkey`,`customDomainAPI` FROM `apps` WHERE `owner` = ? AND `name` = ?", [$_SESSION['username'], $_SESSION['name']]);
             $row = mysqli_fetch_array($query->result);
-            misc\cache\purge('KeyAuthAppSeller:' . $row['sellerkey']);
-            misc\cache\purge('KeyAuthApp:' . $row['customDomainAPI']);
+            misc\cache\purge('WantedAuthAppSeller:' . $row['sellerkey']);
+            misc\cache\purge('WantedAuthApp:' . $row['customDomainAPI']);
         }
         dashboard\primary\success("Successfully Refreshed App!");
     } else {
@@ -217,12 +217,12 @@ if (isset($_POST['deleteapp'])) {
         misc\mysql\query("DELETE FROM `whitelist` WHERE `app` = ?", [$app]);
         misc\mysql\query("DELETE FROM `accounts` WHERE `app` = ? AND `owner` = ?", [$_SESSION['name'], $_SESSION['username']]);
 
-        misc\cache\purge('KeyAuthApp:' . $_SESSION['name'] . ':' . $_SESSION['ownerid']);
+        misc\cache\purge('WantedAuthApp:' . $_SESSION['name'] . ':' . $_SESSION['ownerid']);
         if ($_SESSION['role'] == "seller" || $_SESSION['role'] == "developer") {
             $query = misc\mysql\query("SELECT `sellerkey`,`customDomainAPI` FROM `apps` WHERE `owner` = ? AND `name` = ?", [$_SESSION['username'], $_SESSION['name']]);
             $row = mysqli_fetch_array($query->result);
-            misc\cache\purge('KeyAuthAppSeller:' . $row['sellerkey']);
-            misc\cache\purge('KeyAuthApp:' . $row['customDomainAPI']);
+            misc\cache\purge('WantedAuthAppSeller:' . $row['sellerkey']);
+            misc\cache\purge('WantedAuthApp:' . $row['customDomainAPI']);
         }
 
         $_SESSION['app'] = NULL;
@@ -407,7 +407,7 @@ if (isset($_POST["closeAlert"])) {
                         <div class="p-4 rounded-lg bg-[#09090d]" id="csharp" role="tabpanel"
                             aria-labelledby="csharp-tab">
                             <pre id="csharp-creds" class="copy-target text-gray-400 bg-[#09090d] overflow-x-auto">
-public static api KeyAuthApp = new api(
+public static api WantedAuthApp = new api(
     name: "<?= $appname; ?>",
     ownerid: "<?= $ownerid; ?>",
     secret: "<?= $secret; ?>",
@@ -426,7 +426,7 @@ public static api KeyAuthApp = new api(
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/KeyAuth/KeyAuth-CSHARP-Example" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth/WantedAuth-CSHARP-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -439,7 +439,7 @@ public static api KeyAuthApp = new api(
 
                                 View
                                 C# Example</a>
-                            <a href="https://github.com/KeyAuth/KeyAuth-Unity-Example" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth/WantedAuth-Unity-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -474,7 +474,7 @@ std::string url = skCrypt("https://keyauth.win/api/1.2/").decrypt(); // change i
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/KeyAuth/KeyAuth-CPP-Example" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth/WantedAuth-CPP-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -511,7 +511,7 @@ keyauthapp = api(
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/KeyAuth/KeyAuth-Python-Example" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth/WantedAuth-Python-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -542,7 +542,7 @@ $ownerid = "<?= $ownerid; ?>";</pre>
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/KeyAuth/KeyAuth-PHP-Example" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth/WantedAuth-PHP-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -558,7 +558,7 @@ $ownerid = "<?= $ownerid; ?>";</pre>
                         </div>
                         <div class="p-4 rounded-lg bg-[#09090d]" id="js" role="tabpanel" aria-labelledby="js-tab">
                             <pre id="js-creds" class="copy-target text-gray-400 bg-[#09090d] overflow-x-auto">
-const KeyAuthApp = new KeyAuth(
+const WantedAuthApp = new WantedAuth(
     "<?= $appname; ?>",
     "<?= $ownerid; ?>",
     "<?= $secret; ?>",
@@ -577,7 +577,7 @@ const KeyAuthApp = new KeyAuth(
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/mazkdevf/KeyAuth-JS-Example" target="_blank" type="button"
+                            <a href="https://github.com/mazkdevf/WantedAuth-JS-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -609,7 +609,7 @@ private static String version = "<?= $version; ?>"</pre>
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/KeyAuth-Archive/KeyAuth-JAVA-api" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth-Archive/WantedAuth-JAVA-api" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -642,7 +642,7 @@ Private Shared version As String = "<?= $version; ?>"</pre>
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/KeyAuth/KeyAuth-VB-Example" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth/WantedAuth-VB-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -678,7 +678,7 @@ let mut keyauthapp = keyauth::v1_2::KeyauthApi::new(
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/KeyAuth/KeyAuth-Rust-Example" target="_blank" type="button"
+                            <a href="https://github.com/WantedAuth/WantedAuth-Rust-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -710,7 +710,7 @@ var version = "<?= $version; ?>"</pre>
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/mazkdevf/KeyAuth-Go-Example" target="_blank" type="button"
+                            <a href="https://github.com/mazkdevf/WantedAuth-Go-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -742,7 +742,7 @@ local version = "<?= $version; ?>";</pre>
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/mazkdevf/KeyAuth-Lua-Examples" target="_blank" type="button"
+                            <a href="https://github.com/mazkdevf/WantedAuth-Lua-Examples" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -758,7 +758,7 @@ local version = "<?= $version; ?>";</pre>
                         </div>
                         <div class="p-4 rounded-lg bg-[#09090d]" id="ruby" role="tabpanel" aria-labelledby="ruby-tab">
                             <pre id="ruby-creds" class="copy-target text-gray-400 bg-[#09090d] overflow-x-auto">
-KeyAuth.new.Api(
+WantedAuth.new.Api(
     "<?= $appname; ?>",
     "<?= $ownerid; ?>",
     "<?= $secret; ?>",
@@ -777,7 +777,7 @@ KeyAuth.new.Api(
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/mazkdevf/KeyAuth-Ruby-Example" target="_blank" type="button"
+                            <a href="https://github.com/mazkdevf/WantedAuth-Ruby-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"
@@ -793,7 +793,7 @@ KeyAuth.new.Api(
                         </div>
                         <div class="p-4 rounded-lg bg-[#09090d]" id="perl" role="tabpanel" aria-labelledby="perl-tab">
                             <pre id="perl-creds" class="copy-target text-gray-400 bg-[#09090d] overflow-x-auto">
-KeyAuth::Api(
+WantedAuth::Api(
     "<?= $appname; ?>",
     "<?= $ownerid; ?>",
     "<?= $secret; ?>",
@@ -812,7 +812,7 @@ KeyAuth::Api(
                                 </svg>
 
                                 Copy Credentials</button>
-                            <a href="https://github.com/mazkdevf/KeyAuth-Perl-Example" target="_blank" type="button"
+                            <a href="https://github.com/mazkdevf/WantedAuth-Perl-Example" target="_blank" type="button"
                                 class="inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200">
 
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"

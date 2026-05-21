@@ -28,7 +28,7 @@ CREATE TABLE `accounts` (
   `locked` int NOT NULL DEFAULT '0',
   `warning` varchar(999) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `admin` int NOT NULL DEFAULT '0',
-  `img` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'https://cdn.keyauth.cc/assets/img/favicon.png',
+  `img` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '/wantedauth-logo.svg',
   `balance` varchar(49) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `keylevels` varchar(49) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N/A',
   `expires` varchar(49) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -121,7 +121,7 @@ CREATE TABLE `apps` (
   `blockLeakedPasswords` int NOT NULL DEFAULT '0',
   `forceEncryption` int NOT NULL DEFAULT '0',
   `customDomainAPI` varchar(253) DEFAULT NULL,
-  `customerPanelIcon` varchar(200) NOT NULL DEFAULT 'https://cdn.keyauth.cc/front/assets/img/favicon.png',
+  `customerPanelIcon` varchar(200) NOT NULL DEFAULT '/wantedauth-logo.svg',
   `forceHwid` int DEFAULT '1',
   `minHwid` int DEFAULT '20',
   `sellerLogs` int DEFAULT '0',
@@ -348,7 +348,7 @@ CREATE TABLE `webhooks` (
   `id` int NOT NULL,
   `webid` varchar(10) NOT NULL,
   `baselink` varchar(200) NOT NULL,
-  `useragent` varchar(49) NOT NULL DEFAULT 'KeyAuth',
+  `useragent` varchar(49) NOT NULL DEFAULT 'WantedAuth',
   `app` varchar(64) NOT NULL,
   `authed` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;

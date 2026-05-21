@@ -95,7 +95,7 @@ function createLicense($amount, $mask, $duration, $level, $note, $expiry = null,
                                 return 'tester_limit';
                         }
 
-                        $mask = "KEYAUTH-" . $mask;
+                        $mask = "WANTEDAUTH-" . $mask;
                         break;
                 case 'Reseller':
                         if ($amount < 0) 
@@ -159,12 +159,12 @@ function createLicense($amount, $mask, $duration, $level, $note, $expiry = null,
                         $query = mysql\query("UPDATE `accounts` SET `balance` = ? WHERE `username` = ?",[$balance, $_SESSION['username']]);
                         break;
                 case 'seller':
-                        cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
                         break;
         }
         
         if(!is_null($secret)) {
-                cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
         }
 
         $licenses = array();
@@ -192,7 +192,7 @@ function addTime($time, $expiry, $secret = null)
         {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) 
                 {
-                        cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } 
@@ -208,10 +208,10 @@ function deleteAll($secret = null)
         {
 		$query = mysql\query("DELETE FROM `tokens` WHERE `app` = ? AND `type` = ?",[$secret ?? $_SESSION['app'], "license"]);
 
-		if ($query->affected_rows > 0) { cache\purgePattern('KeyAuthUserTokens:' . ($secret ?? $_SESSION['app'])); }
+		if ($query->affected_rows > 0) { cache\purgePattern('WantedAuthUserTokens:' . ($secret ?? $_SESSION['app'])); }
 		
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } 
@@ -227,11 +227,11 @@ function deleteAllUnused($secret = null)
         {
 		$query = mysql\query("DELETE FROM `tokens` WHERE `app` = ? AND `status` = ? AND `type` = ?",[$secret ?? $_SESSION['app'], "Not Used", "license"]);
 
-		if ($query->affected_rows > 0) { cache\purgePattern('KeyAuthUserTokens:' . ($secret ?? $_SESSION['app'])); }
+		if ($query->affected_rows > 0) { cache\purgePattern('WantedAuthUserTokens:' . ($secret ?? $_SESSION['app'])); }
 		
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) 
                 {
-                        cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } 
@@ -247,7 +247,7 @@ function deleteAllUsed($secret = null)
         {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) 
                 {
-                        cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } 
@@ -282,10 +282,10 @@ function deleteSingular($key, $userToo, $secret = null)
     $query = mysql\query("DELETE FROM `tokens` WHERE `app` = ? AND `assigned` = ?", [$secret ?? $_SESSION['app'], $key]);
     $query = mysql\query("DELETE FROM `keys` WHERE `app` = ? AND `key` = ?",[$secret ?? $_SESSION['app'], $key]);
      if ($query->affected_rows > 0) {
-        cache\purgePattern('KeyAuthUserTokens:' . ($secret ?? $_SESSION['app'])); 
+        cache\purgePattern('WantedAuthUserTokens:' . ($secret ?? $_SESSION['app'])); 
         if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-            cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
-            cache\purge('KeyAuthKey:' . ($secret ?? $_SESSION['app']) . ':' . $key);
+            cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
+            cache\purge('WantedAuthKey:' . ($secret ?? $_SESSION['app']) . ':' . $key);
         }
         return 'success';
     } else {
@@ -322,10 +322,10 @@ function deleteMultiple($keys, $userToo, $secret = null) {
         $query = mysql\query("DELETE FROM `tokens` WHERE `app` = ? AND `assigned` = ?", [$secret ?? $_SESSION['app'], $key]);
 	$query = mysql\query("DELETE FROM `keys` WHERE `app` = ? AND `key` = ?",[$secret ?? $_SESSION['app'], $key]);
        if ($query->affected_rows > 0) {
-                cache\purgePattern('KeyAuthUserTokens:' . ($secret ?? $_SESSION['app'])); 
+                cache\purgePattern('WantedAuthUserTokens:' . ($secret ?? $_SESSION['app'])); 
             if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
-                cache\purge('KeyAuthKey:' . ($secret ?? $_SESSION['app']) . ':' . $key);
+                cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
+                cache\purge('WantedAuthKey:' . ($secret ?? $_SESSION['app']) . ':' . $key);
             }
         } else {
             return 'failure';
@@ -361,12 +361,12 @@ function ban($key, $reason, $userToo, $secret = null)
         if ($query->affected_rows > 0) 
         {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
                 }
 
                 $query = mysql\query("UPDATE `tokens` SET `banned` = ?, `reason` = NULL WHERE `app` = ? AND `assigned` = ? AND `type` = ?", [1, $secret ?? $_SESSION['app'], $key, "license"]);
 		if ($query->affected_rows > 0) { 
-                        cache\purgePattern('KeyAuthUserTokens:' . ($secret ?? $_SESSION['app'])); 
+                        cache\purgePattern('WantedAuthUserTokens:' . ($secret ?? $_SESSION['app'])); 
                 } else { 
                         return 'failure'; 
                 }                         
@@ -404,13 +404,13 @@ function unban($key, $secret = null)
         {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) 
                 {
-                        cache\purge('KeyAuthKeys:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthKeys:' . ($secret ?? $_SESSION['app']));
                 }
                 
                 $query = mysql\query("UPDATE `tokens` SET `banned` = 0, `reason` = NULL WHERE `app` = ? AND `assigned` = ? AND `type` = ?", [$secret ?? $_SESSION['app'], $key, "license"]);
 
 		if ($query->affected_rows > 0) { 
-                        cache\purgePattern('KeyAuthUserTokens:' . ($secret ?? $_SESSION['app']));    
+                        cache\purgePattern('WantedAuthUserTokens:' . ($secret ?? $_SESSION['app']));    
                 } else { 
                         return 'failure'; 
                 }

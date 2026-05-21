@@ -162,7 +162,7 @@ if (isset($_POST['savefile'])) {
     $query = misc\mysql\query("UPDATE `files` SET `name` = ?,`size` = ?,`url` = ?, `uploaddate` = ?, `authed` = ? WHERE `app` = ? AND `id` = ?", [$fn, $fs, $url, time(), $authed, $_SESSION['app'], $fileid]);
 
     if ($query->affected_rows != 0) {
-        misc\cache\purge('KeyAuthFile:' . ($secret ?? $_SESSION['app']) . ':' . $fileid);
+        misc\cache\purge('WantedAuthFile:' . ($secret ?? $_SESSION['app']) . ':' . $fileid);
         dashboard\primary\success("Successfully Updated File!");
     } else {
         dashboard\primary\error("Failed to update file");

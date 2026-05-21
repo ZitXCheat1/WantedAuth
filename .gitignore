@@ -43,3 +43,10 @@ app/pages/reseller-users.php
 app/pages/seller-settings.php
 app/pages/seller-logs.php
 app/pages/webloader.php
+
+# local runtime data
+.mariadb-data/
+mariadb.err.log
+mariadb.out.log
+php-server.err.log
+php-server.log

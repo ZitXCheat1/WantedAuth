@@ -787,8 +787,8 @@ if (isset($_POST['editkey'])) {
                         misc\mysql\query("UPDATE `keys` SET `expires` = ? WHERE `key` = ? AND `app` = ?",[$duration, $key, $_SESSION['app']]);
                     }
                     misc\mysql\query("UPDATE `keys` SET `note` = ?, `level` = ? WHERE `key` = ? AND `app` = ?",[$note, $level, $key, $_SESSION['app']]);
-                    misc\cache\purge('KeyAuthKey:' . $_SESSION['app'] . ':' . $key);
-                    misc\cache\purge('KeyAuthKeys:' . $_SESSION['app']);
+                    misc\cache\purge('WantedAuthKey:' . $_SESSION['app'] . ':' . $key);
+                    misc\cache\purge('WantedAuthKeys:' . $_SESSION['app']);
                     dashboard\primary\success("Successfully Updated Settings!");
                 }
 

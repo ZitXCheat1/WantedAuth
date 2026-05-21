@@ -15,7 +15,7 @@ function addButton($text, $value, $secret = null)
 
     if ($query->affected_rows > 0) {
         if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-            cache\purge('KeyAuthButtons:' . ($secret ?? $_SESSION['app']));
+            cache\purge('WantedAuthButtons:' . ($secret ?? $_SESSION['app']));
         }
         return 'success';
     } else {
@@ -31,7 +31,7 @@ function deleteButton($value, $secret = null)
 
     if ($query->affected_rows > 0) {
         if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-            cache\purge('KeyAuthButtons:' . ($secret ?? $_SESSION['app']));
+            cache\purge('WantedAuthButtons:' . ($secret ?? $_SESSION['app']));
         }
         return 'success';
     } else {

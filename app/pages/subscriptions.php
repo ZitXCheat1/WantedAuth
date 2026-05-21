@@ -98,7 +98,7 @@ if (isset($_POST['savesub'])) {
     } else {
         misc\mysql\query("UPDATE `subscriptions` SET `level` = ? WHERE `name` = ? AND `app` = ?", [$level, $subscription, $_SESSION['app']]);
         if ($_SESSION['role'] == "seller") {
-            misc\cache\purge('KeyAuthSubscriptions:' . $_SESSION['app']);
+            misc\cache\purge('WantedAuthSubscriptions:' . $_SESSION['app']);
         }
         dashboard\primary\success("Successfully Updated Subscription!");
         echo "<meta http-equiv='Refresh' Content='2'>";

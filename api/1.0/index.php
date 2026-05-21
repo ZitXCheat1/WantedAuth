@@ -30,10 +30,10 @@ if(strlen(hex2bin($_POST['ownerid'])) != 10) {
 
 $ownerid = misc\etc\sanitize(hex2bin($_POST['ownerid'])); // ownerid of account that owns application
 $name = misc\etc\sanitize(hex2bin($_POST['name'])); // application name
-$row = misc\cache\fetch('KeyAuthApp:' . $name . ':' . $ownerid, "SELECT * FROM `apps` WHERE `ownerid` = ? AND `name` = ?", [$ownerid, $name], 0);
+$row = misc\cache\fetch('WantedAuthApp:' . $name . ':' . $ownerid, "SELECT * FROM `apps` WHERE `ownerid` = ? AND `name` = ?", [$ownerid, $name], 0);
 
 if ($row == "not_found") {
-    die("KeyAuth_Invalid");
+    die("WantedAuth_Invalid");
 }
 
 // app settings
@@ -83,7 +83,7 @@ $minHwid = $row['minHwid'] ?? 20;
 if ($banned) {
     die(api\v1_0\Encrypt(json_encode(array(
         "success" => false,
-        "message" => "This application has been banned from KeyAuth.cc for violating terms." // yes we self promote to customers of those who break ToS. Should've followed terms :shrug:
+        "message" => "This application has been banned from WantedAuth.cc for violating terms." // yes we self promote to customers of those who break ToS. Should've followed terms :shrug:
     )), $secret));
 }
 
@@ -99,7 +99,7 @@ switch (hex2bin($_POST['type'])) {
         $ip = api\shared\primary\getIp();
         if ($vpnblock) {
             if (api\shared\primary\vpnCheck($ip)) {
-                $row = misc\cache\fetch('KeyAuthWhitelist:' . $secret . ':' . $ip, "SELECT 1 FROM `whitelist` WHERE `ip` = ? AND `app` = ?", [$ip, $secret], 0);
+                $row = misc\cache\fetch('WantedAuthWhitelist:' . $secret . ':' . $ip, "SELECT 1 FROM `whitelist` WHERE `ip` = ? AND `app` = ?", [$ip, $secret], 0);
                 if ($row == "not_found") {
                     die(api\v1_0\Encrypt(json_encode(array(
                         "success" => false,
@@ -140,7 +140,7 @@ switch (hex2bin($_POST['type'])) {
             if (strpos($serverhash, $hash) === false) {
                 if (is_null($serverhash)) {
                     misc\mysql\query("UPDATE `apps` SET `hash` = ? WHERE `secret` = ?", [$hash, $secret]);
-                    misc\cache\purge('KeyAuthApp:' . $name . ':' . $ownerid); // flush cache for application so new hash takes precedent
+                    misc\cache\purge('WantedAuthApp:' . $name . ':' . $ownerid); // flush cache for application so new hash takes precedent
                 } else {
                     die(api\v1_0\Encrypt(json_encode(array(
                         "success" => false,
@@ -153,10 +153,10 @@ switch (hex2bin($_POST['type'])) {
         $enckey = misc\etc\sanitize(api\v1_0\Decrypt($_POST['enckey'], $secret));
 
         $newSession = false;
-        $duplicateSession = misc\cache\select("KeyAuthSessionDupe:$secret:$ip");
+        $duplicateSession = misc\cache\select("WantedAuthSessionDupe:$secret:$ip");
         if($duplicateSession) {
             $sessionid = $duplicateSession;
-            $updateSession = misc\cache\update('KeyAuthState:'.$secret.':'.$sessionid.'', array("enckey" => $enckey));
+            $updateSession = misc\cache\update('WantedAuthState:'.$secret.':'.$sessionid.'', array("enckey" => $enckey));
             if(!$updateSession) {
                 $sessionid = misc\etc\generateRandomString();
                 $newSession = true;
@@ -167,7 +167,7 @@ switch (hex2bin($_POST['type'])) {
             $newSession = true;
         }
 
-        // $row = misc\cache\fetch('KeyAuthAppStats:' . $secret, "SELECT (SELECT COUNT(1) FROM `users` WHERE `app` = ?) AS 'numUsers', (SELECT COUNT(1) FROM `sessions` WHERE `app` = ? AND `validated` = 1 AND `expiry` > ?) AS 'numOnlineUsers', (SELECT COUNT(1) FROM `keys` WHERE `app` = ?) AS 'numKeys' FROM dual", [$secret, $secret, time(), $secret], 0, 3600);
+        // $row = misc\cache\fetch('WantedAuthAppStats:' . $secret, "SELECT (SELECT COUNT(1) FROM `users` WHERE `app` = ?) AS 'numUsers', (SELECT COUNT(1) FROM `sessions` WHERE `app` = ? AND `validated` = 1 AND `expiry` > ?) AS 'numOnlineUsers', (SELECT COUNT(1) FROM `keys` WHERE `app` = ?) AS 'numKeys' FROM dual", [$secret, $secret, time(), $secret], 0, 3600);
 
         $numUsers = "N/A - Use fetchStats() function in latest example";
         $numOnlineUsers = "N/A - Use fetchStats() function in latest example";
@@ -189,12 +189,12 @@ switch (hex2bin($_POST['type'])) {
         fastcgi_finish_request();
 
         if($newSession) {
-            misc\cache\insert("KeyAuthState:$secret:$sessionid", serialize(array("credential" => NULL, "enckey" => $enckey, "validated" => 0)), $sessionexpiry);
+            misc\cache\insert("WantedAuthState:$secret:$sessionid", serialize(array("credential" => NULL, "enckey" => $enckey, "validated" => 0)), $sessionexpiry);
             $time = time() + $sessionexpiry;
             misc\mysql\query("INSERT INTO `sessions` (`id`, `app`, `expiry`, `created_at`, `enckey`,`ip`) VALUES (?, ?, ?, ?, ?, ?)", [$sessionid, $secret, $time, time(), $enckey, $ip]);
             $session = api\shared\primary\getSession($sessionid, $secret);
             $enckey = $session["enckey"];
-            misc\cache\insert("KeyAuthSessionDupe:$secret:$ip", $sessionid, $sessionexpiry);
+            misc\cache\insert("WantedAuthSessionDupe:$secret:$ip", $sessionid, $sessionexpiry);
         }
 
     case 'register':
@@ -282,7 +282,7 @@ switch (hex2bin($_POST['type'])) {
                 )), $enckey));
             default:
                 misc\mysql\query("UPDATE `sessions` SET `credential` = ?,`validated` = 1 WHERE `id` = ? AND `app` = ?", [$username, $sessionid, $secret]);
-                misc\cache\update('KeyAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $username));
+                misc\cache\update('WantedAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $username));
                 die(api\v1_0\Encrypt(json_encode(array(
                     "success" => true,
                     "message" => "$loggedInMsg",
@@ -366,8 +366,8 @@ switch (hex2bin($_POST['type'])) {
                 case 'success':
                     // set key to used, and set usedby
                     misc\mysql\query("UPDATE `keys` SET `status` = 'Used', `usedon` = ?, `usedby` = ? WHERE `key` = ? AND `app` = ?", [time(), $username, $checkkey, $secret]);
-                    misc\cache\purge('KeyAuthKeys:' . $secret . ':' . $checkkey);
-                    misc\cache\purge('KeyAuthSubs:' . $secret . ':' . $username);
+                    misc\cache\purge('WantedAuthKeys:' . $secret . ':' . $checkkey);
+                    misc\cache\purge('WantedAuthSubs:' . $secret . ':' . $username);
                     die(api\v1_0\Encrypt(json_encode(array(
                         "success" => true,
                         "message" => "Upgraded successfully"
@@ -454,7 +454,7 @@ switch (hex2bin($_POST['type'])) {
                 )), $enckey));
             default:
                 misc\mysql\query("UPDATE `sessions` SET `validated` = 1,`credential` = ? WHERE `id` = ? AND `app` = ?", [$username, $sessionid, $secret]);
-                misc\cache\update('KeyAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $username));
+                misc\cache\update('WantedAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $username));
                 die(api\v1_0\Encrypt(json_encode(array(
                     "success" => true,
                     "message" => "$loggedInMsg",
@@ -534,7 +534,7 @@ switch (hex2bin($_POST['type'])) {
                 )), $enckey));
             default:
                 misc\mysql\query("UPDATE `sessions` SET `validated` = 1,`credential` = ? WHERE `id` = ?", [$checkkey, $sessionid]);
-                misc\cache\update('KeyAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $checkkey));
+                misc\cache\update('WantedAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $checkkey));
                 die(api\v1_0\Encrypt(json_encode(array(
                     "success" => true,
                     "message" => "$loggedInMsg",
@@ -593,7 +593,7 @@ switch (hex2bin($_POST['type'])) {
                 )), $enckey));
             default:
                 misc\mysql\query("UPDATE `sessions` SET `validated` = 1,`credential` = ? WHERE `id` = ?", [$checkkey, $sessionid]);
-                misc\cache\update('KeyAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $checkkey));
+                misc\cache\update('WantedAuthState:'.$secret.':'.$sessionid.'', array("validated" => 1, "credential" => $checkkey));
                 die(api\v1_0\Encrypt(json_encode(array(
                     "success" => true,
                     "message" => "$loggedInMsg",
@@ -605,7 +605,7 @@ switch (hex2bin($_POST['type'])) {
         $session = api\shared\primary\getSession($sessionid, $secret);
         $enckey = $session["enckey"];
 
-        $rows = misc\cache\fetch('KeyAuthOnlineUsers:' . $secret, "SELECT DISTINCT CONCAT(LEFT(`credential`, 10), IF(LENGTH(`credential`) > 10, REPEAT('*', LENGTH(`credential`) - 10), '')) AS `credential` FROM `sessions` WHERE `validated` = 1 AND `app` = ?", [$secret], 1, 1800);
+        $rows = misc\cache\fetch('WantedAuthOnlineUsers:' . $secret, "SELECT DISTINCT CONCAT(LEFT(`credential`, 10), IF(LENGTH(`credential`) > 10, REPEAT('*', LENGTH(`credential`) - 10), '')) AS `credential` FROM `sessions` WHERE `validated` = 1 AND `app` = ?", [$secret], 1, 1800);
 
         if ($rows == "not_found") {
             die(api\v1_0\Encrypt(json_encode(array(
@@ -654,7 +654,7 @@ switch (hex2bin($_POST['type'])) {
             )), $enckey));
         }
 
-        $row = misc\cache\fetch('KeyAuthUserVar:' . $secret . ':' . $var . ':' . $session["credential"], "SELECT `data`, `readOnly` FROM `uservars` WHERE `name` = ? AND `user` = ? AND `app` = ?", [$var, $session["credential"], $secret], 0);
+        $row = misc\cache\fetch('WantedAuthUserVar:' . $secret . ':' . $var . ':' . $session["credential"], "SELECT `data`, `readOnly` FROM `uservars` WHERE `name` = ? AND `user` = ? AND `app` = ?", [$var, $session["credential"], $secret], 0);
 
         if ($row != "not_found") {
             $readOnly = $row["readOnly"];
@@ -669,7 +669,7 @@ switch (hex2bin($_POST['type'])) {
         $query = misc\mysql\query("REPLACE INTO `uservars` (`name`, `data`, `user`, `app`) VALUES (?, ?, ?, ?)", [$var, $data, $session["credential"], $secret]);
 
         if ($query->affected_rows != 0) {
-            misc\cache\purge('KeyAuthUserVar:' . $secret . ':' . $var . ':' . $session["credential"]);
+            misc\cache\purge('WantedAuthUserVar:' . $secret . ':' . $var . ':' . $session["credential"]);
             die(api\v1_0\Encrypt(json_encode(array(
                 "success" => true,
                 "message" => "Successfully set variable"
@@ -693,7 +693,7 @@ switch (hex2bin($_POST['type'])) {
 
         $var = misc\etc\sanitize(api\v1_0\Decrypt($_POST['var'], $enckey));
 
-        $row = misc\cache\fetch('KeyAuthUserVar:' . $secret . ':' . $var . ':' . $session["credential"], "SELECT `data`, `readOnly` FROM `uservars` WHERE `name` = ? AND `user` = ? AND `app` = ?", [$var, $session["credential"], $secret], 0);
+        $row = misc\cache\fetch('WantedAuthUserVar:' . $secret . ':' . $var . ':' . $session["credential"], "SELECT `data`, `readOnly` FROM `uservars` WHERE `name` = ? AND `user` = ? AND `app` = ?", [$var, $session["credential"], $secret], 0);
 
         if ($row == "not_found") {
             die(api\v1_0\Encrypt(json_encode(array(
@@ -715,7 +715,7 @@ switch (hex2bin($_POST['type'])) {
         $enckey = $session["enckey"];
 
         $varid = misc\etc\sanitize(api\v1_0\Decrypt($_POST['varid'], $enckey));
-        $row = misc\cache\fetch('KeyAuthVar:' . $secret . ':' . $varid, "SELECT `msg`, `authed` FROM `vars` WHERE `varid` = ? AND `app` = ?", [$varid, $secret], 0);
+        $row = misc\cache\fetch('WantedAuthVar:' . $secret . ':' . $varid, "SELECT `msg`, `authed` FROM `vars` WHERE `varid` = ? AND `app` = ?", [$varid, $secret], 0);
         if ($row == "not_found") {
             die(api\v1_0\Encrypt(json_encode(array(
                 "success" => false,
@@ -748,7 +748,7 @@ switch (hex2bin($_POST['type'])) {
 
         $hwid = misc\etc\sanitize(api\v1_0\Decrypt($_POST['hwid'], $enckey));
         $ip = api\shared\primary\getIp();
-        $row = misc\cache\fetch('KeyAuthBlacklist:' . $secret . ':' . $ip . ':' . $hwid, "SELECT 1 FROM `bans` WHERE (`hwid` = ? OR `ip` = ?) AND `app` = ?", [$hwid, $ip, $secret], 0);
+        $row = misc\cache\fetch('WantedAuthBlacklist:' . $secret . ':' . $ip . ':' . $hwid, "SELECT 1 FROM `bans` WHERE (`hwid` = ? OR `ip` = ?) AND `app` = ?", [$hwid, $ip, $secret], 0);
 
         if ($row != "not_found") {
             die(api\v1_0\Encrypt(json_encode(array(
@@ -774,7 +774,7 @@ switch (hex2bin($_POST['type'])) {
         }
 
         $channel = misc\etc\sanitize(api\v1_0\Decrypt($_POST['channel'], $enckey));
-        $rows = misc\cache\fetch('KeyAuthChatMsgs:' . $secret . ':' . $channel, "SELECT `author`, `message`, `timestamp` FROM `chatmsgs` WHERE `channel` = ? AND `app` = ?", [$channel, $secret], 1);
+        $rows = misc\cache\fetch('WantedAuthChatMsgs:' . $secret . ':' . $channel, "SELECT `author`, `message`, `timestamp` FROM `chatmsgs` WHERE `channel` = ? AND `app` = ?", [$channel, $secret], 1);
 
         if ($rows == "not_found") {
             $rows = [];
@@ -851,7 +851,7 @@ switch (hex2bin($_POST['type'])) {
 
         misc\mysql\query("INSERT INTO `chatmsgs` (`author`, `message`, `timestamp`, `channel`,`app`) VALUES (?, ?, ?, ?, ?)", [$credential, $message, time(), $channel, $secret]);
         misc\mysql\query("DELETE FROM `chatmsgs` WHERE `app` = ? AND `channel` = ? AND `id` NOT IN ( SELECT `id` FROM ( SELECT `id` FROM `chatmsgs` WHERE `channel` = ? AND `app` = ? ORDER BY `id` DESC LIMIT 50) foo );", [$secret, $channel, $channel, $secret]);
-        misc\cache\purge('KeyAuthChatMsgs:' . $secret . ':' . $channel);
+        misc\cache\purge('WantedAuthChatMsgs:' . $secret . ':' . $channel);
         die(api\v1_0\Encrypt(json_encode(array(
             "success" => true,
             "message" => "Successfully sent chat message"
@@ -882,7 +882,7 @@ switch (hex2bin($_POST['type'])) {
         $pcuser = misc\etc\sanitize(api\v1_0\Decrypt($_POST['pcuser'], $enckey));
 
         if (is_null($webhook)) {
-            $roleCheck = misc\cache\fetch('KeyAuthSellerCheck:' . $owner, "SELECT `role`,`expires` FROM `accounts` WHERE `username` = ?", [$owner], 0);
+            $roleCheck = misc\cache\fetch('WantedAuthSellerCheck:' . $owner, "SELECT `role`,`expires` FROM `accounts` WHERE `username` = ?", [$owner], 0);
             if($roleCheck['role'] == "tester") {
                 $query = misc\mysql\query("SELECT count(*) AS 'numLogs' FROM `logs` WHERE `logapp` = ?",[$secret]);
                 $row = mysqli_fetch_array($query->result);
@@ -948,7 +948,7 @@ switch (hex2bin($_POST['type'])) {
 
         $webid = misc\etc\sanitize(api\v1_0\Decrypt($_POST['webid'], $enckey));
 
-        $row = misc\cache\fetch('KeyAuthWebhook:' . $secret . ':' . $webid, "SELECT `baselink`, `useragent`, `authed` FROM `webhooks` WHERE `webid` = ? AND `app` = ?", [$webid, $secret], 0);
+        $row = misc\cache\fetch('WantedAuthWebhook:' . $secret . ':' . $webid, "SELECT `baselink`, `useragent`, `authed` FROM `webhooks` WHERE `webid` = ? AND `app` = ?", [$webid, $secret], 0);
         if ($row == "not_found") {
             die(api\v1_0\Encrypt(json_encode(array(
                 "success" => false,
@@ -1005,7 +1005,7 @@ switch (hex2bin($_POST['type'])) {
 
         $fileid = misc\etc\sanitize(api\v1_0\Decrypt($_POST['fileid'], $enckey));
 
-        $row = misc\cache\fetch('KeyAuthFile:' . $secret . ':' . $fileid, "SELECT `name`, `url`, `authed` FROM `files` WHERE `app` = ? AND `id` = ?", [$secret, $fileid], 0);
+        $row = misc\cache\fetch('WantedAuthFile:' . $secret . ':' . $fileid, "SELECT `name`, `url`, `authed` FROM `files` WHERE `app` = ? AND `id` = ?", [$secret, $fileid], 0);
 
         if ($row == "not_found") {
             die(api\v1_0\Encrypt(json_encode(array(
@@ -1083,7 +1083,7 @@ switch (hex2bin($_POST['type'])) {
         misc\mysql\query("UPDATE `users` SET `banned` = ? WHERE `username` = ? AND `app` = ?", [$reason, $credential, $secret]);
 
         if ($query->affected_rows != 0) {
-            misc\cache\purge('KeyAuthUser:' . $secret . ':' . $credential);
+            misc\cache\purge('WantedAuthUser:' . $secret . ':' . $credential);
             die(api\v1_0\Encrypt(json_encode(array(
                 "success" => true,
                 "message" => "Successfully Banned User"

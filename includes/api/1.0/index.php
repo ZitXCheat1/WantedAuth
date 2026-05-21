@@ -64,7 +64,7 @@ function register($un, $key, $pw, $email, $hwid, $secret)
         $hwidBlackCheck = mysql\query("SELECT 1 FROM `bans` WHERE (`hwid` = ? OR `ip` = ?) AND `app` = ?",[$hwid, $ip, $secret]);
         if ($hwidBlackCheck->num_rows > 0) {
             $query = mysql\query("UPDATE `keys` SET `status` = 'Banned',`banned` = 'This key has been banned as the client was blacklisted.' WHERE `key` = ? AND `app` = ?",[$un, $secret]);
-            cache\purge('KeyAuthKeys:' . $secret);
+            cache\purge('WantedAuthKeys:' . $secret);
             return 'hwid_blacked';
         }
         // add current time to key time
@@ -76,7 +76,7 @@ function register($un, $key, $pw, $email, $hwid, $secret)
         // update key to used
         mysql\query("UPDATE `keys` SET `status` = 'Used',`usedon` = ?,`usedby` = ? WHERE `key` = ? AND `app` = ?",[time(), $un, $key, $secret]);
 
-        cache\purge('KeyAuthKeys:' . $secret);
+        cache\purge('WantedAuthKeys:' . $secret);
         while ($row = mysqli_fetch_array($query->result)) {
             // add each subscription that user's key applies to
             $subname = $row['name'];
@@ -100,8 +100,8 @@ function register($un, $key, $pw, $email, $hwid, $secret)
             $rows = array("subscription" => "$subname", "key" => "$key", "expiry" => "$expiry", "timeleft" => "$timeleft");
         }
         
-        cache\purge('KeyAuthUser:' . $secret . ':' . $un);
-        cache\purge('KeyAuthSubs:' . $secret . ':' . $un);
+        cache\purge('WantedAuthUser:' . $secret . ':' . $un);
+        cache\purge('WantedAuthSubs:' . $secret . ':' . $un);
         // success
         return array(
             "username" => "$un",
@@ -117,7 +117,7 @@ function register($un, $key, $pw, $email, $hwid, $secret)
 #region login region
 function login($un, $pw, $hwid, $secret, $hwidenabled, $token = null, $_2fa = null)
 {
-    $row = cache\fetch('KeyAuthUser:' . $secret . ':' . $un, "SELECT * FROM `users` WHERE `username` = ? AND `app` = ?", [$un, $secret], 0);
+    $row = cache\fetch('WantedAuthUser:' . $secret . ':' . $un, "SELECT * FROM `users` WHERE `username` = ? AND `app` = ?", [$un, $secret], 0);
 
     if ($row == "not_found") {
         return 'un_not_found';
@@ -146,7 +146,7 @@ function login($un, $pw, $hwid, $secret, $hwidenabled, $token = null, $_2fa = nu
         $pass_encrypted = password_hash($pw, PASSWORD_BCRYPT);
         $query = mysql\query("UPDATE `users` SET `password` = ? WHERE `username` = ? AND `app` = ?",[$pass_encrypted, $un, $secret]);
 
-        cache\purge('KeyAuthUser:' . $secret . ':' . $un);
+        cache\purge('WantedAuthUser:' . $secret . ':' . $un);
     }
     // check if hwid enabled for application
     if ($hwidenabled == "1") {
@@ -156,10 +156,10 @@ function login($un, $pw, $hwid, $secret, $hwidenabled, $token = null, $_2fa = nu
         } else if (is_null($serverHwid) && !is_null($hwid)) {
             $query = mysql\query("UPDATE `users` SET `hwid` = NULLIF(?, '') WHERE `username` = ? AND `app` = ?",[$hwid, $un, $secret]);
 
-            cache\purge('KeyAuthUser:' . $secret . ':' . $un);
+            cache\purge('WantedAuthUser:' . $secret . ':' . $un);
         }
     }
-    $rows = cache\fetch('KeyAuthSubs:' . $secret . ':' . $un, "SELECT `subscription`, `key`, `expiry` FROM `subs` WHERE `user` = ? AND `app` = ? AND `expiry` > ?", [$un, $secret, time()], 1, null, "ssi");
+    $rows = cache\fetch('WantedAuthSubs:' . $secret . ':' . $un, "SELECT `subscription`, `key`, `expiry` FROM `subs` WHERE `user` = ? AND `app` = ? AND `expiry` > ?", [$un, $secret, time()], 1, null, "ssi");
     if($_SERVER['HTTP_USER_AGENT'] == "PostmanRuntime/7.31.3") {
         var_dump($rows);
     }

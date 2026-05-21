@@ -57,7 +57,7 @@ function add($url, $authed, $secret = null)
   $query = mysql\query("INSERT INTO `files` (name, id, url, size, uploaddate, app, authed) VALUES (?, ?, ?, ?, ?, ?, ?)", [$fn, $id, $url, $fs, time(), $secret ?? $_SESSION['app'], $authed]);
   if ($query->affected_rows > 0) {
     if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-      cache\purge('KeyAuthFiles:' . ($secret ?? $_SESSION['app']));
+      cache\purge('WantedAuthFiles:' . ($secret ?? $_SESSION['app']));
     }
     return 'success';
   } else {
@@ -69,9 +69,9 @@ function deleteAll($secret = null)
   $query = mysql\query("DELETE FROM `files` WHERE `app` = ?", [$secret ?? $_SESSION['app']]);
 
   if ($query->affected_rows > 0) {
-    cache\purgePattern('KeyAuthFile:' . ($secret ?? $_SESSION['app']));
+    cache\purgePattern('WantedAuthFile:' . ($secret ?? $_SESSION['app']));
     if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-      cache\purge('KeyAuthFiles:' . ($secret ?? $_SESSION['app']));
+      cache\purge('WantedAuthFiles:' . ($secret ?? $_SESSION['app']));
     }
     return 'success';
   } else {
@@ -85,9 +85,9 @@ function deleteSingular($file, $secret = null)
   $query = mysql\query("DELETE FROM `files` WHERE `app` = ? AND `id` = ?", [$secret ?? $_SESSION['app'], $file]);
 
   if ($query->affected_rows > 0) {
-    cache\purge('KeyAuthFile:' . ($secret ?? $_SESSION['app']) . ':' . $file);
+    cache\purge('WantedAuthFile:' . ($secret ?? $_SESSION['app']) . ':' . $file);
     if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-      cache\purge('KeyAuthFiles:' . ($secret ?? $_SESSION['app']));
+      cache\purge('WantedAuthFiles:' . ($secret ?? $_SESSION['app']));
     }
     return 'success';
   } else {

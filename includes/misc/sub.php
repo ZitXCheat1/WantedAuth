@@ -13,7 +13,7 @@ function deleteSingular($subscription, $secret = null)
         $query = mysql\query("DELETE FROM `subscriptions` WHERE `app` = ? AND `name` = ?",[$secret ?? $_SESSION['app'], $subscription]);
         if ($query->affected_rows > 0) {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthSubscriptions:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthSubscriptions:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
@@ -28,7 +28,7 @@ function add($name, $level, $secret = null)
         $query = mysql\query("INSERT INTO `subscriptions` (`name`, `level`, `app`) VALUES (?, ?, ?)",[$name , $level,$secret ?? $_SESSION['app']]);
         if ($query->affected_rows > 0) {
                 if ($_SESSION['role'] == "seller" || !is_null($secret)) {
-                        cache\purge('KeyAuthSubscriptions:' . ($secret ?? $_SESSION['app']));
+                        cache\purge('WantedAuthSubscriptions:' . ($secret ?? $_SESSION['app']));
                 }
                 return 'success';
         } else {
