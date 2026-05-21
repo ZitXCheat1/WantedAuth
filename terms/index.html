@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="title" content="WantedAuth - Open Source Auth">
+  <meta name="title" content="WantedAuth - Private Client Auth">
 
   <meta
     content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors"
@@ -22,13 +22,13 @@
   <link rel="shortcut icon" type="image/jpg" href="/wantedauth-logo.svg">
 
   <!-- Schema.org markup for Google+ -->
-  <meta itemprop="name" content="WantedAuth - Open Source Auth">
+  <meta itemprop="name" content="WantedAuth - Private Client Auth">
   <meta itemprop="description"
     content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
   <meta itemprop="image" content="/wantedauth-logo.svg">
   <meta name="twitter:card" content="product">
   <meta name="twitter:site" content="@keyauth">
-  <meta name="twitter:title" content="WantedAuth - Open Source Auth">
+  <meta name="twitter:title" content="WantedAuth - Private Client Auth">
 
   <meta name="twitter:description"
     content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
@@ -36,7 +36,7 @@
   <meta name="twitter:image" content="/wantedauth-logo.svg">
 
   <!-- Open Graph data -->
-  <meta property="og:title" content="WantedAuth - Open Source Auth" />
+  <meta property="og:title" content="WantedAuth - Private Client Auth" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="./" />
 
@@ -100,6 +100,27 @@
     }
   </script>
   <style>
+    html, body {
+      background:
+        radial-gradient(circle at top left, rgba(255, 122, 122, 0.14), transparent 30%),
+        radial-gradient(circle at top right, rgba(170, 15, 15, 0.16), transparent 34%),
+        linear-gradient(180deg, #120608 0%, #17080a 54%, #220c11 100%);
+    }
+
+    .bg-blue-600,
+    .bg-blue-700 {
+      background-color: #b71717 !important;
+    }
+
+    .text-blue-500,
+    .text-blue-600 {
+      color: #ff8f8f !important;
+    }
+
+    .hover\:text-blue-500:hover {
+      color: #ffb1b1 !important;
+    }
+
     .hidden_l {
       opacity: 0;
       transform: translateY(20px);
@@ -112,7 +133,7 @@
     <nav class="border-[#0f0f17] px-4 lg:px-6 py-2.5 mb-14">
       <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
         <a href="../" class="flex items-center">
-          <img src="/wantedauth-logo.svg" class="mr-3 h-12 mt-2"
+          <img src="/wantedauth-logo.svg" class="mr-3 h-10 w-auto"
             alt="WantedAuth Logo" />
         </a>
         <div class="flex items-center lg:order-2">
@@ -333,18 +354,6 @@
                 </div>
               </div>
             </li>
-            <li>
-              <a href="../#plans"
-                class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">
-                Plans
-              </a>
-            </li>
-            <li>
-              <a href="../#team"
-                class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">
-                Our Team
-              </a>
-            </li>
           </ul>
         </div>
       </div>
@@ -355,9 +364,7 @@
     <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-5xl text-white text-center">
       Terms and Conditions</h1>
     <div style="display: flex; justify-content: center; align-items: center; height: 5vh;">
-      <p class="mb-2 text-gray-400">WantedAuth is an <a href="https://github.com/WantedAuth/WantedAuth-Source-Code"
-          class="text-blue-600  hover:underline" target="_blank">Open-source</a> authentication system with
-        cloud-hosted subscriptions available as well.</p>
+      <p class="mb-2 text-gray-400">WantedAuth is a privately deployed authentication system branded for direct client delivery.</p>
     </div>
     <div class="py-8 px-4 mx-auto max-w-screen-xl gap-8 lg:gap-16">
       <div class="flex flex-col justify-center">
@@ -378,11 +385,8 @@
           <div id="acb-1" class="hidden" aria-labelledby="ach-1">
             <div class="p-5 border border-b-0 border-[#0f0f17]">
               <p class="mb-2 text-gray-500 ">
-                WantedAuth is an <a href="https://github.com/WantedAuth/WantedAuth-Source-Code"
-                  class="text-blue-600  hover:underline" target="_blank">open-source</a> service. You are <b>NOT</b>
-                allowed to sell the WantedAuth source or sell any subscriptions using the WantedAuth source. The source code
-                is for personal and educational use <b>ONLY</b>! Failure to abide by this will result in a DMCA takedown
-                request.
+                WantedAuth is a private client deployment. Redistribution, resale, or unauthorized reuse of the source,
+                branding, or hosted service is not permitted without explicit approval from the owner.
               </p>
             </div>
           </div>

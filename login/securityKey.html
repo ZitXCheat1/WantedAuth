@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
-    <meta name="title" content="WantedAuth - Open Source Auth">
+    <meta name="title" content="WantedAuth - Private Client Auth">
 
     <meta content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors" name="description" />
     <meta content="WantedAuth" name="author" />
@@ -17,19 +17,19 @@
     <link rel="shortcut icon" type="image/jpg" href="/wantedauth-logo.svg">
 
     <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="WantedAuth - Open Source Auth">
+    <meta itemprop="name" content="WantedAuth - Private Client Auth">
     <meta itemprop="description" content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
     <meta itemprop="image" content="/wantedauth-logo.svg">
     <meta name="twitter:card" content="product">
     <meta name="twitter:site" content="@keyauth">
-    <meta name="twitter:title" content="WantedAuth - Open Source Auth">
+    <meta name="twitter:title" content="WantedAuth - Private Client Auth">
 
     <meta name="twitter:description" content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
     <meta name="twitter:creator" content="@keyauth">
     <meta name="twitter:image" content="/wantedauth-logo.svg">
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="WantedAuth - Open Source Auth" />
+    <meta property="og:title" content="WantedAuth - Private Client Auth" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="./" />
     
@@ -44,6 +44,23 @@
     <!--Custom Styles-->
     <link rel="stylesheet" href="https://cdn.keyauth.cc/v3/scripts/animate.min.css" />
     <link rel="stylesheet" href="https://cdn.keyauth.cc/v3/dist/output.css">
+    <style>
+        html, body {
+            background:
+                radial-gradient(circle at top left, rgba(255, 122, 122, 0.14), transparent 30%),
+                radial-gradient(circle at top right, rgba(170, 15, 15, 0.16), transparent 34%),
+                linear-gradient(180deg, #120608 0%, #17080a 54%, #220c11 100%);
+        }
+
+        .bg-blue-600,
+        .bg-blue-700 {
+            background-color: #b71717 !important;
+        }
+
+        .text-blue-600 {
+            color: #ff8f8f !important;
+        }
+    </style>
     <script src="https://cdn.keyauth.cc/dashboard/webauthn.js"></script>
     <!-- Security Key - Credits to https://stackoverflow.com/a/45656609 -->
     <script>
@@ -58,7 +75,7 @@
         <nav class="border-gray-200 px-4 lg:px-6 py-2.5 mb-14">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="../" class="flex items-center">
-                    <img src="/wantedauth-logo.svg" class="mr-3 h-12 mt-2" alt="WantedAuth Logo" />
+                    <img src="/wantedauth-logo.svg" class="mr-3 h-10 w-auto" alt="WantedAuth Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
                     <a href="../login" class="text-white focus:ring-0 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 hover:opacity-60 transition duration-200 focus:outline-none focus:ring-gray-800">
@@ -84,16 +101,6 @@
                         </li>
                         <li>
                             <a href="../#features" class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">Features</a>
-                        </li>
-                        <li>
-                            <a href="../#plans" class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">
-                                Plans
-                            </a>
-                        </li>
-                        <li>
-                            <a href="../#team" class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">
-                                Our Team
-                            </a>
                         </li>
                     </ul>
                 </div>

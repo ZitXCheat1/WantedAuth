@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="title" content="WantedAuth - Open Source Auth">
+    <meta name="title" content="WantedAuth - Private Client Auth">
 
     <meta
         content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors"
@@ -22,13 +22,13 @@
     <link rel="shortcut icon" type="image/jpg" href="/wantedauth-logo.svg">
 
     <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="WantedAuth - Open Source Auth">
+    <meta itemprop="name" content="WantedAuth - Private Client Auth">
     <meta itemprop="description"
         content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
     <meta itemprop="image" content="/wantedauth-logo.svg">
     <meta name="twitter:card" content="product">
     <meta name="twitter:site" content="@keyauth">
-    <meta name="twitter:title" content="WantedAuth - Open Source Auth">
+    <meta name="twitter:title" content="WantedAuth - Private Client Auth">
 
     <meta name="twitter:description"
         content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
@@ -36,11 +36,11 @@
     <meta name="twitter:image" content="/wantedauth-logo.svg">
 
     <!-- Open Graph data -->
-    <meta property="og:title" content="WantedAuth - Open Source Auth" />
+    <meta property="og:title" content="WantedAuth - Private Client Auth" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="./" />
 
-    <title>WantedAuth - Open Source Auth</title>
+    <title>WantedAuth - Private Client Auth</title>
 
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://keyauth.cc" />
@@ -54,9 +54,9 @@
             --surface-soft: #35161c;
             --border-strong: rgba(255, 109, 109, 0.22);
             --text-soft: #d6b4b4;
-            --accent-cyan: #ff7a7a;
-            --accent-blue: #cf1d1d;
-            --accent-gold: #ffb36b;
+            --accent-cyan: #ff8f8f;
+            --accent-blue: #d11818;
+            --accent-gold: #ff6b6b;
         }
 
         body {
@@ -83,7 +83,7 @@
         }
 
         .glass-panel {
-            background: rgba(15, 27, 45, 0.84);
+            background: rgba(39, 16, 20, 0.84);
             border: 1px solid var(--border-strong);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.34);
             backdrop-filter: blur(14px);
@@ -135,7 +135,7 @@
         <nav class="px-4 lg:px-6 py-4 mb-10">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="./" class="flex items-center">
-                    <img src="/wantedauth-logo.svg" class="mr-3 h-16 mt-1"
+                    <img src="/wantedauth-logo.svg" class="mr-3 h-10 w-auto"
                         alt="WantedAuth Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
@@ -338,12 +338,6 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#api"
-                                class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">
-                                API
-                            </a>
-                        </li>
-                        <li>
                             <a href="#team"
                                 class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">
                                 Our Team
@@ -359,42 +353,28 @@
         <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
             <div class="grid items-center gap-10 mb-8 lg:mb-16 lg:gap-16 lg:grid-cols-12 ">
                 <div class="col-span-6 text-center sm:mb-6 lg:text-left lg:mb-0">
-                    <a class="inline-flex items-center justify-between px-2 py-2 pr-5 mb-6 text-sm text-white glass-panel rounded-full hover:opacity-90 transition duration-200 animate-on-scroll-in-down"
-                        href="https://wantedauth.sytes.net/api/1.2/" target="_blank" role="alert">
-                        <span class="px-3 py-1 mr-3 text-xs rounded-full bg-[#52e5c7] text-[#07111f] font-semibold">
-                            API LIVE
-                        </span> <span class="text-sm font-medium">
-                            https://wantedauth.sytes.net/api/1.2/
-                        </span>
-                        <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd"></path>
-                        </svg>
-                    </a>
                     <h1
                         class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-6xl text-white animate-on-scroll">
-                        Host your own auth stack without the old SaaS wrapper.
+                        Private licensing and auth infrastructure for client deployments.
                     </h1>
                     <p
                         class="max-w-2xl mx-auto mb-6 font-base lg:mx-0 xl:mb-8 md:text-lg xl:text-xl text-gray-300 animate-on-scroll-right">
-                        WantedAuth now points straight at your own API, your own panel, and your own deployment path. The landing page is trimmed down to onboarding, capabilities, and the live endpoint your clients should use.
+                        WantedAuth is positioned here as a managed private platform: client access, operator controls, licensing, and deployment-ready auth without public marketplace framing.
                     </p>
                     <div class="mb-8 rounded-2xl glass-panel p-4 animate-on-scroll-right">
                         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div>
-                                <p class="text-xs uppercase tracking-[0.22em] text-[#52e5c7]">Endpoint</p>
-                                <p class="mt-1 text-lg font-semibold text-white">wantedauth.sytes.net/api/1.2/</p>
+                                <p class="text-xs uppercase tracking-[0.22em] text-[#ff8f8f]">Private deployment</p>
+                                <p class="mt-1 text-lg font-semibold text-white">Hosted auth panel, licensing, and client operations</p>
                             </div>
-                            <a href="https://wantedauth.sytes.net/api/1.2/" target="_blank"
-                                class="inline-flex items-center justify-center rounded-lg bg-[#52e5c7] px-4 py-2 text-sm font-semibold text-[#07111f] transition duration-200 hover:opacity-80">
-                                Open API
+                            <a href="./login/" target="_blank"
+                                class="inline-flex items-center justify-center rounded-lg bg-[#c91a1a] px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:opacity-80">
+                                Open Client Area
                             </a>
                         </div>
                     </div>
                     <a href="./register/" target="_blank"
-                        class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-[#07111f] rounded-lg bg-[#52e5c7] hover:opacity-80 focus:ring-0 transition duration-200 animate-on-scroll">
+                        class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-[#c91a1a] hover:opacity-80 focus:ring-0 transition duration-200 animate-on-scroll">
                         Onboard Now
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -404,7 +384,7 @@
                         </svg>
                     </a>
                     <a href="./login/" target="_blank"
-                        class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center border rounded-lg focus:ring-0 text-white border-[rgba(124,166,255,0.18)] hover:opacity-60 transition duration-200 animate-on-scroll">
+                        class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center border rounded-lg focus:ring-0 text-white border-[rgba(255,122,122,0.2)] hover:opacity-60 transition duration-200 animate-on-scroll">
                         Client Area
                     </a>
                 </div>
@@ -412,7 +392,7 @@
                     <div class="glass-panel rounded-[2rem] p-4 md:p-6">
                         <div class="mb-4 flex items-center justify-between">
                             <div>
-                                <p class="text-xs uppercase tracking-[0.22em] text-[#a9bad2]">Deployment Surface</p>
+                                <p class="text-xs uppercase tracking-[0.22em] text-[#d6b4b4]">Deployment Surface</p>
                                 <p class="mt-1 text-2xl font-bold text-white">Panel + API</p>
                             </div>
                             <div class="h-3 w-24 rounded-full accent-line"></div>
@@ -480,10 +460,10 @@
                     </svg>
                     <div>
                         <h3 class="mb-1 text-lg font-semibold leading-tight text-white">
-                            Open-Source
+                            Private Deployment
                         </h3>
                         <p class="font-light text-gray-400">
-                            WantedAuth operates as open-source, granting you full transparency into its functionalities.
+                            Branded and hosted for direct client delivery without public-source positioning on the landing page.
                         </p>
                     </div>
                 </div>
@@ -631,56 +611,6 @@
                 <div class="h-[64px] w-[3px] bg-[#0f0f17] absolute -right-[17px] top-[142px] rounded-r-lg"></div>
                 <div class="rounded-[2rem] overflow-hidden w-[272px] h-[572px] bg-[#0f0f17]">
                     <img src="https://cdn.keyauth.cc/v3/imgs/mobile.png" class="w-[272px] h-[572px]" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="api">
-        <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
-            <div class="mx-auto max-w-screen-md text-center">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">API Access</h2>
-                <p class="font-light mb-12 text-gray-300 sm:text-xl">Use the live endpoint below in your client examples and integrations.</p>
-            </div>
-            <div class="grid gap-8 lg:grid-cols-[1.35fr_.95fr]">
-                <div class="glass-panel rounded-[1.75rem] p-8">
-                    <div class="mb-6 flex items-center justify-between">
-                        <div>
-                            <p class="text-xs uppercase tracking-[0.22em] text-[#52e5c7]">Production endpoint</p>
-                            <h3 class="mt-2 text-3xl font-bold text-white">wantedauth.sytes.net/api/1.2/</h3>
-                        </div>
-                        <a href="https://wantedauth.sytes.net/api/1.2/" target="_blank"
-                            class="inline-flex items-center rounded-lg bg-[#5b8cff] px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:opacity-80">
-                            Open
-                        </a>
-                    </div>
-                    <div class="rounded-2xl bg-[#08111f] p-5 text-left">
-<pre class="overflow-x-auto text-sm text-[#a9bad2]"><code>const apiUrl = "https://wantedauth.sytes.net/api/1.2/";
-
-fetch(apiUrl, {
-  method: "POST",
-  headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  body: new URLSearchParams({
-    type: "init",
-    name: "YOUR_APP",
-    ownerid: "YOUR_OWNER_ID"
-  })
-});</code></pre>
-                    </div>
-                </div>
-                <div class="grid gap-6">
-                    <div class="glass-panel rounded-[1.75rem] p-6">
-                        <p class="text-xs uppercase tracking-[0.22em] text-[#f6c35b]">Replace old URLs</p>
-                        <p class="mt-3 text-lg font-semibold text-white">Any sample still using `keyauth.win` should now point to your hosted domain.</p>
-                    </div>
-                    <div class="glass-panel rounded-[1.75rem] p-6">
-                        <p class="text-xs uppercase tracking-[0.22em] text-[#52e5c7]">Relative routing</p>
-                        <p class="mt-3 text-lg font-semibold text-white">The panel, auth routes, and stats page stay on the same host, so the landing page now matches the deployment.</p>
-                    </div>
-                    <div class="glass-panel rounded-[1.75rem] p-6">
-                        <p class="text-xs uppercase tracking-[0.22em] text-[#5b8cff]">Next step</p>
-                        <p class="mt-3 text-lg font-semibold text-white">Once DNS resolves, this endpoint will match the VPS-hosted install and your code samples.</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -872,126 +802,6 @@ fetch(apiUrl, {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-            <div class="mx-auto max-w-screen-md text-center">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">
-                    Partners & Verified Developers
-                </h2>
-                <p class="mb-8 font-light lg:mb-16 text-gray-400 sm:text-xl">
-                    We are proud to have partnered with these amazing developers and projects.
-                </p>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="h-full p-8 border border-[#0f0f17] rounded-xl bg-[#0f0f17] animate-on-scroll">
-                    <div class="flex flex-wrap justify-between border-b border-gray-800 pb-7 mb-7">
-                        <div class="w-full xl:w-auto">
-                            <div>
-                                <img src="https://cdn.keyauth.cc/mazk-icon.png" class="w-12 h-12 rounded-xl mb-2"
-                                    alt="...">
-                                <h3 class="font-bold text-2xl text-white mb-2">
-                                    mazk
-                                </h3>
-                                <span>
-                                    <span class="mt-1">
-                                        <span
-                                            class="bg-[#09090d] text-gray-400 border-2 border-[#09090d]/70 text-xs md:text-sm font-medium px-2.5 py-0.5 rounded">Full
-                                            Stack Developer</span>
-                                        <span
-                                            class="bg-[#09090d] text-gray-400 border-2 border-[#09090d]/70 text-xs md:text-sm font-medium px-2.5 py-0.5 rounded">
-                                            FS Software Developer
-                                        </span>
-                                        <span
-                                            class="ml-1 bg-[#09090d] text-gray-400 border-2 border-[#09090d]/70 text-xs md:text-sm font-medium px-2.5 py-0.5 rounded">
-                                        Friendly
-                                    </span>
-                                </span>
-                            </div>
-
-                            <br>
-                            <span>
-                                <p class="text-sm text-gray-400">
-                                    C++, C#, JS, PHP Developer
-                                </p>
-                            </span>
-                        </div>
-                        <div class="w-full xl:w-auto xl:text-right hidden md:block">
-                            <svg data-tooltip-target="verified-developer" class="w-8 h-8 text-[#fcdf3b]"
-                                fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M19.965 8.521C19.988 8.347 20 8.173 20 8c0-2.379-2.143-4.288-4.521-3.965A3.995 3.995 0 0 0 12 2a3.995 3.995 0 0 0-3.479 2.035C6.138 3.712 4 5.621 4 8c0 .173.012.347.035.521A3.998 3.998 0 0 0 2 12c0 1.465.802 2.785 2.035 3.479A3.977 3.977 0 0 0 4 16c0 2.379 2.138 4.283 4.521 3.965A3.995 3.995 0 0 0 12 22a3.995 3.995 0 0 0 3.479-2.035C17.857 20.283 20 18.379 20 16c0-.173-.012-.347-.035-.521A3.998 3.998 0 0 0 22 12a3.998 3.998 0 0 0-2.035-3.479Zm-9.01 7.895-3.667-3.714 1.424-1.404 2.257 2.286 4.327-4.294 1.408 1.42-5.749 5.706Z">
-                                </path>
-                            </svg>
-
-                            <div id="verified-developer" role="tooltip"
-                                class="absolute z-10 invisible inline-block px-3 py-2 text-xs font-medium text-white transition-opacity duration-300 bg-[#0f0f17] border-2 border-[#09090d] rounded-lg shadow-sm opacity-0 tooltip">
-                                Verified Developer & Partner
-                            </div> 
-                        </div>
-                    </div>
-
-                    <button onclick='relocate("https://mazkdevf.it", "_blank")'
-                    class="text-white border-2 hover:bg-white hover:text-black focus:ring-0 focus:outline-none transition duration-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mb-3 w-full">
-                     Website
-                    </button>
-
-                </div>
-                <div class="h-full p-8 border border-[#0f0f17] rounded-xl bg-[#0f0f17] animate-on-scroll-right">
-                    <div class="flex flex-wrap justify-between border-b border-gray-800 pb-7 mb-7">
-                        <div class="w-full xl:w-auto">
-                            <div>
-
-                                <img src="https://cdn.keyauth.cc/vaultcord-logo.png" class="w-12 h-12 rounded-xl mb-2"
-                                    alt="...">
-
-                                <h3 class="font-bold text-2xl text-white mb-2">
-                                    VaultCord
-                                </h3>
-                                <span class="mt-1">
-                                    <span
-                                        class="bg-[#09090d] text-gray-400 border-2 border-[#09090d]/70 text-xs md:text-sm font-medium px-2.5 py-0.5 rounded">Discord
-                                        Bot</span>
-                                    <span
-                                        class="bg-[#09090d] text-gray-400 border-2 border-[#09090d]/70 text-xs md:text-sm font-medium px-2.5 py-0.5 rounded">Restore
-                                        members</span>
-                                    <span
-                                        class="bg-[#09090d] text-gray-400 border-2 border-[#09090d]/70 text-xs md:text-sm font-medium px-2.5 py-0.5 rounded">Better
-                                        than RestoreCord</span>
-                                </span>
-                            </div>
-
-                            <br>
-                            <span>
-                                <p class="text-sm text-gray-400">
-                                    Best Discord Restore Bot
-                                </p>
-                            </span>
-                        </div>
-                        <div class="w-full xl:w-auto xl:text-right hidden md:block">
-                            <svg data-tooltip-target="verified-partner" class="w-8 h-8 text-[#1e96fc]"
-                                fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M19.965 8.521C19.988 8.347 20 8.173 20 8c0-2.379-2.143-4.288-4.521-3.965A3.995 3.995 0 0 0 12 2a3.995 3.995 0 0 0-3.479 2.035C6.138 3.712 4 5.621 4 8c0 .173.012.347.035.521A3.998 3.998 0 0 0 2 12c0 1.465.802 2.785 2.035 3.479A3.977 3.977 0 0 0 4 16c0 2.379 2.138 4.283 4.521 3.965A3.995 3.995 0 0 0 12 22a3.995 3.995 0 0 0 3.479-2.035C17.857 20.283 20 18.379 20 16c0-.173-.012-.347-.035-.521A3.998 3.998 0 0 0 22 12a3.998 3.998 0 0 0-2.035-3.479Zm-9.01 7.895-3.667-3.714 1.424-1.404 2.257 2.286 4.327-4.294 1.408 1.42-5.749 5.706Z">
-                                </path>
-                            </svg>
-
-                            <div id="verified-partner" role="tooltip"
-                                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-[#0f0f17] border-2 border-[#09090d] rounded-lg shadow-sm opacity-0 tooltip">
-                                Verified Partner
-                            </div>
-                        </div>
-                    </div>
-
-                    <button onclick='relocate("https://vaultcord.com", "_blank")'
-                    class="text-white border-2 hover:bg-white hover:text-black focus:ring-0 focus:outline-none transition duration-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mb-3 w-full">
-                     Website
-                    </button>
-
                 </div>
             </div>
         </div>

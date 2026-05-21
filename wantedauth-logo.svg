@@ -1,19 +1,9 @@
-<svg width="520" height="170" viewBox="0 0 520 170" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Wanted List">
-  <rect width="520" height="170" rx="24" fill="transparent"/>
-  <g transform="translate(14 18)">
-    <rect x="0" y="17" width="114" height="10" rx="5" fill="#121212" transform="rotate(-18 0 17)"/>
-    <rect x="18" y="7" width="36" height="12" rx="4" fill="#1C1C1C" transform="rotate(-18 18 7)"/>
-    <rect x="90" y="34" width="20" height="44" rx="4" fill="#171717" transform="rotate(-18 90 34)"/>
-    <rect x="63" y="41" width="22" height="54" rx="4" fill="#111111" transform="rotate(-18 63 41)"/>
-  </g>
-  <g font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-weight="900" text-anchor="middle">
-    <text x="264" y="88" font-size="84" fill="#C61111" stroke="#120909" stroke-width="6" letter-spacing="2">WANTED</text>
-    <text x="264" y="152" font-size="72" fill="#ECECEC" stroke="#191919" stroke-width="5" letter-spacing="2">LIST</text>
-  </g>
-  <g transform="translate(362 103)">
-    <rect x="0" y="28" width="128" height="10" rx="5" fill="#121212" transform="rotate(-18 0 28)"/>
-    <rect x="18" y="18" width="36" height="12" rx="4" fill="#1C1C1C" transform="rotate(-18 18 18)"/>
-    <rect x="99" y="48" width="20" height="46" rx="4" fill="#171717" transform="rotate(-18 99 48)"/>
-    <rect x="73" y="54" width="22" height="54" rx="4" fill="#111111" transform="rotate(-18 73 54)"/>
-  </g>
+<svg width="220" height="56" viewBox="0 0 220 56" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="WantedAuth logo">
+  <rect width="220" height="56" rx="14" fill="transparent"/>
+  <path d="M15 13H96" stroke="#140809" stroke-width="7" stroke-linecap="round"/>
+  <path d="M148 41H205" stroke="#140809" stroke-width="7" stroke-linecap="round"/>
+  <text x="14" y="27" fill="#D61E1E" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="26" font-weight="900" letter-spacing="1.2">WANTED</text>
+  <text x="58" y="47" fill="#F3F4F6" font-family="Impact, Haettenschweiler, 'Arial Black', sans-serif" font-size="21" font-weight="900" letter-spacing="1.6">LIST</text>
+  <rect x="13" y="31" width="84" height="2.5" rx="1.25" fill="#8E1111"/>
+  <rect x="58" y="51" width="52" height="2.5" rx="1.25" fill="#C91A1A"/>
 </svg>
