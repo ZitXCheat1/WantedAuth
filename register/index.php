@@ -44,21 +44,21 @@ set_exception_handler(function ($exception) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="WantedAuth, Cloud Authentication, Key Authentication,Authentication, API authentication,Security, Encryption authentication, Authenticated encryption, Cybersecurity, Developer, SaaS, Software Licensing, Licensing" />
     <meta property="og:description" content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors" />
-    <meta property="og:image" content="/wantedauth-logo.svg" />
+    <meta property="og:image" content="/wantedauth-logo.png" />
     <meta property="og:site_name" content="WantedAuth | Secure your software from piracy." />
-    <link rel="shortcut icon" type="image/jpg" href="/wantedauth-logo.svg">
+    <link rel="shortcut icon" type="image/png" href="/wantedauth-logo.png">
 
     <!-- Schema.org markup for Google+ -->
     <meta itemprop="name" content="WantedAuth - Private Client Auth">
     <meta itemprop="description" content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
-    <meta itemprop="image" content="/wantedauth-logo.svg">
+    <meta itemprop="image" content="/wantedauth-logo.png">
     <meta name="twitter:card" content="product">
     <meta name="twitter:site" content="@keyauth">
     <meta name="twitter:title" content="WantedAuth - Private Client Auth">
 
     <meta name="twitter:description" content="Secure your software against piracy, an issue causing $422 million in losses annually - Fair pricing & Features not seen in competitors">
     <meta name="twitter:creator" content="@keyauth">
-    <meta name="twitter:image" content="/wantedauth-logo.svg">
+    <meta name="twitter:image" content="/wantedauth-logo.png">
 
     <!-- Open Graph data -->
     <meta property="og:title" content="WantedAuth - Private Client Auth" />
@@ -113,7 +113,7 @@ set_exception_handler(function ($exception) {
         <nav class="border-gray-200 px-4 lg:px-6 py-2.5 mb-14">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="../" class="flex items-center">
-                    <img src="/wantedauth-logo.svg" class="mr-3 h-10 w-auto" alt="WantedAuth Logo" />
+                    <img src="/wantedauth-logo.png" class="mr-3 h-10 w-auto" alt="WantedAuth Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
                     <a href="../login" class="text-white focus:ring-0 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 hover:opacity-60 transition duration-200 focus:outline-none focus:ring-gray-800">
@@ -393,7 +393,7 @@ set_exception_handler(function ($exception) {
         $_SESSION['username'] = $username;
         $_SESSION['ownerid'] = $ownerid;
         $_SESSION['role'] = 'seller';
-        $_SESSION['img'] = '/wantedauth-logo.svg';
+        $_SESSION['img'] = '/wantedauth-logo.png';
         header("location: ../app/");
     }
     ?>

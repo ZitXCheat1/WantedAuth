@@ -80,7 +80,7 @@ if (!$_SESSION['app']) // no app selected yet
     <script src="https://cdn.keyauth.cc/dashboard/unixtolocal.js"></script>
 
     <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
-    <link rel="shortcut icon" type="image/jpg" href="/wantedauth-logo.svg">
+    <link rel="shortcut icon" type="image/png" href="/wantedauth-logo.png">
 
     <link href="https://cdn.keyauth.cc/v2/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet"
         type="text/css" />
