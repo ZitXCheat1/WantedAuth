@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-[#09090d] text-white overflow-x-hidden">
+<html lang="en" class="bg-[#07111f] text-white overflow-x-hidden">
 
 <head>
     <meta charset="UTF-8">
@@ -46,13 +46,58 @@
     <link rel="canonical" href="https://keyauth.cc" />
 
     <link rel="stylesheet" href="https://cdn.keyauth.cc/v3/dist/output.css">
-
     <link rel="stylesheet" type="text/css" href="https://cdn.keyauth.cc/v3/scripts/animate.min.css" />
+    <style>
+        :root {
+            --surface-main: #07111f;
+            --surface-panel: #0f1b2d;
+            --surface-soft: #14243b;
+            --border-strong: rgba(124, 166, 255, 0.18);
+            --text-soft: #a9bad2;
+            --accent-cyan: #52e5c7;
+            --accent-blue: #5b8cff;
+            --accent-gold: #f6c35b;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(82, 229, 199, 0.14), transparent 32%),
+                radial-gradient(circle at top right, rgba(91, 140, 255, 0.16), transparent 36%),
+                linear-gradient(180deg, #08111f 0%, #07111f 52%, #0b1526 100%);
+        }
+
+        .landing-shell {
+            position: relative;
+        }
+
+        .landing-shell::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0,0,0,0.7), transparent 92%);
+        }
+
+        .glass-panel {
+            background: rgba(15, 27, 45, 0.84);
+            border: 1px solid var(--border-strong);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.34);
+            backdrop-filter: blur(14px);
+        }
+
+        .accent-line {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), var(--accent-gold));
+        }
+    </style>
 </head>
 
-<body>
+<body class="landing-shell">
     <header>
-        <nav class="border-gray-200 px-4 lg:px-6 py-2.5 mb-14">
+        <nav class="px-4 lg:px-6 py-4 mb-10">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="./" class="flex items-center">
                     <img src="/wantedauth-logo.svg" class="mr-3 h-12 mt-2"
@@ -258,9 +303,9 @@
                             </div>
                         </li>
                         <li>
-                            <a href="#plans"
+                            <a href="#api"
                                 class="block py-2 pr-4 pl-3 border-b lg:hover:bg-transparent lg:border-0 lg:p-0 text-gray-400 hover:bg-gray-700 hover:text-white lg:hover:bg-transparent border-gray-700 transition duration-200">
-                                Plans
+                                API
                             </a>
                         </li>
                         <li>
@@ -277,14 +322,14 @@
 
     <section class="">
         <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16">
-            <div class="grid items-center gap-8 mb-8 lg:mb-16 lg:gap-12 lg:grid-cols-12 ">
+            <div class="grid items-center gap-10 mb-8 lg:mb-16 lg:gap-16 lg:grid-cols-12 ">
                 <div class="col-span-6 text-center sm:mb-6 lg:text-left lg:mb-0">
-                    <a class="inline-flex items-center justify-between px-1 py-1 pr-4 mb-6 text-sm text-gray-400 bg-[#0f0f17] rounded-full text-white hover:opacity-60 transition duration-200 animate-on-scroll-in-down"
-                        href="./app/?page=forms" target="_blank" role="alert">
-                        <span class="px-3 py-1 mr-3 text-xs text-white rounded-full bg-blue-700">
-                            Join US!
+                    <a class="inline-flex items-center justify-between px-2 py-2 pr-5 mb-6 text-sm text-white glass-panel rounded-full hover:opacity-90 transition duration-200 animate-on-scroll-in-down"
+                        href="https://wantedauth.sytes.net/api/1.2/" target="_blank" role="alert">
+                        <span class="px-3 py-1 mr-3 text-xs rounded-full bg-[#52e5c7] text-[#07111f] font-semibold">
+                            API LIVE
                         </span> <span class="text-sm font-medium">
-                          Apply for support, enjoy unlimited seller subscription while on staff. 
+                            https://wantedauth.sytes.net/api/1.2/
                         </span>
                         <svg class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -294,15 +339,27 @@
                         </svg>
                     </a>
                     <h1
-                        class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-5xl text-white animate-on-scroll">
-                        Unleashing the Ultimate Power of Authentication
+                        class="mb-4 text-4xl font-extrabold leading-none tracking-tight md:text-6xl text-white animate-on-scroll">
+                        Host your own auth stack without the old SaaS wrapper.
                     </h1>
                     <p
-                        class="max-w-xl mx-auto mb-6 font-base lg:mx-0 xl:mb-8 md:text-lg xl:text-xl text-gray-400 animate-on-scroll-right">
-                        WantedAuth Seamlessly Blends Cloud-Powered Subscription Hosting with an Open-Source Foundation.
+                        class="max-w-2xl mx-auto mb-6 font-base lg:mx-0 xl:mb-8 md:text-lg xl:text-xl text-gray-300 animate-on-scroll-right">
+                        WantedAuth now points straight at your own API, your own panel, and your own deployment path. The landing page is trimmed down to onboarding, capabilities, and the live endpoint your clients should use.
                     </p>
+                    <div class="mb-8 rounded-2xl glass-panel p-4 animate-on-scroll-right">
+                        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                                <p class="text-xs uppercase tracking-[0.22em] text-[#52e5c7]">Endpoint</p>
+                                <p class="mt-1 text-lg font-semibold text-white">wantedauth.sytes.net/api/1.2/</p>
+                            </div>
+                            <a href="https://wantedauth.sytes.net/api/1.2/" target="_blank"
+                                class="inline-flex items-center justify-center rounded-lg bg-[#52e5c7] px-4 py-2 text-sm font-semibold text-[#07111f] transition duration-200 hover:opacity-80">
+                                Open API
+                            </a>
+                        </div>
+                    </div>
                     <a href="./register/" target="_blank"
-                        class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-0 focus:ring-blue-900 transition duration-200 animate-on-scroll">
+                        class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-[#07111f] rounded-lg bg-[#52e5c7] hover:opacity-80 focus:ring-0 transition duration-200 animate-on-scroll">
                         Onboard Now
                         <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg">
@@ -312,26 +369,38 @@
                         </svg>
                     </a>
                     <a href="./login/" target="_blank"
-                        class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center border rounded-lg focus:ring-0 text-white border-gray-700 hover:opacity-60 focus:ring-gray-800 transition duration-200 animate-on-scroll">
+                        class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center border rounded-lg focus:ring-0 text-white border-[rgba(124,166,255,0.18)] hover:opacity-60 transition duration-200 animate-on-scroll">
                         Client Area
                     </a>
                 </div>
                 <div class="col-span-6 animate-on-scroll-right">
-
-                    <div
-                        class="relative mx-auto border-[#0f0f17] bg-[#0f0f17] border-[8px] rounded-t-xl h-[172px] max-w-[301px] md:h-[294px] md:max-w-[512px]">
-                        <div class="rounded-lg overflow-hidden h-[156px] md:h-[278px]">
-                            <img src="https://cdn.keyauth.cc/v2/dashboard-pic.png" class="h-[156px] md:h-[278px] w-full"
+                    <div class="glass-panel rounded-[2rem] p-4 md:p-6">
+                        <div class="mb-4 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs uppercase tracking-[0.22em] text-[#a9bad2]">Deployment Surface</p>
+                                <p class="mt-1 text-2xl font-bold text-white">Panel + API</p>
+                            </div>
+                            <div class="h-3 w-24 rounded-full accent-line"></div>
+                        </div>
+                        <div class="overflow-hidden rounded-[1.5rem] border border-[rgba(124,166,255,0.16)]">
+                            <img src="https://cdn.keyauth.cc/v2/dashboard-pic.png" class="w-full"
                                 alt="">
                         </div>
-                    </div>
-                    <div
-                        class="relative mx-auto bg-[#0f0f17] rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px]">
-                        <div
-                            class="absolute left-1/2 top-0 -translate-x-1/2 rounded-b-xl w-[56px] h-[5px] md:w-[96px] md:h-[8px] bg-[#09090d]">
+                        <div class="mt-4 grid gap-3 sm:grid-cols-3">
+                            <div class="rounded-2xl bg-[rgba(255,255,255,0.03)] p-4">
+                                <p class="text-xs uppercase tracking-[0.22em] text-[#a9bad2]">Auth</p>
+                                <p class="mt-2 text-xl font-semibold text-white">Users, licenses, sessions</p>
+                            </div>
+                            <div class="rounded-2xl bg-[rgba(255,255,255,0.03)] p-4">
+                                <p class="text-xs uppercase tracking-[0.22em] text-[#a9bad2]">Integrations</p>
+                                <p class="mt-2 text-xl font-semibold text-white">Vars, files, webhooks</p>
+                            </div>
+                            <div class="rounded-2xl bg-[rgba(255,255,255,0.03)] p-4">
+                                <p class="text-xs uppercase tracking-[0.22em] text-[#a9bad2]">Endpoint</p>
+                                <p class="mt-2 text-xl font-semibold text-white">API v1.2</p>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="grid gap-8 sm:gap-12 md:grid-cols-3 pt-12 animate-on-scroll-in-up" id="features">
@@ -532,502 +601,50 @@
         </div>
     </section>
 
-    <section id="plans">
+    <section id="api">
         <div class="max-w-screen-xl px-4 py-8 mx-auto lg:px-6 sm:py-16 lg:py-24">
             <div class="mx-auto max-w-screen-md text-center">
-                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">Pricing Options</h2>
-                <p class="font-light mb-12 text-gray-400 sm:text-xl">We offer a variety of plans to suit your
-                    needs.</p>
-
-                <div class="flex items-center justify-center mb-12 -mt-6">
-                    <label class="relative inline-flex items-center mr-5 cursor-pointer">
-                        <input type="checkbox" id="pricing_anually_month" value="" class="sr-only peer" checked>
-                        <div
-                            class="w-11 h-6 border-2 border-blue-700 bg-[#0f0f17] rounded-full peer peer-focus:ring-0 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-[#0C0C12] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0C0C12]">
-                        </div>
-                        <span class="ml-3 text-sm font-medium text-gray-300">Annual pricing <span class="text-xs">(save
-                                50% +)</span></span>
-                    </label>
-                </div>
+                <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-white">API Access</h2>
+                <p class="font-light mb-12 text-gray-300 sm:text-xl">Use the live endpoint below in your client examples and integrations.</p>
             </div>
-            <div class="flex flex-wrap -m-7">
-                <div class="w-full md:w-1/3 p-7 animate-on-scroll">
-                    <div class="h-full p-8 border border-[#0f0f17] rounded-xl bg-[#0f0f17]">
-                        <div class="flex flex-wrap justify-between border-b border-gray-800 pb-7 mb-7">
-                            <div class="w-full xl:w-auto">
-                                <h3 class="font-bold text-2xl text-white">Tester</h3>
-                            </div>
-                            <div class="w-full xl:w-auto xl:text-right">
-                                <h3 class="mb-0.5 font-bold text-2xl text-white">
-                                    <span class="text-sm mr-0.5">$</span> <span id="tester_mode"></span>
-                                </h3>
-                                <p class="text-sm text-gray-400">
-                                    Limited Access for those looking to experiment implementing WantedAuth
-                                </p>
-                            </div>
+            <div class="grid gap-8 lg:grid-cols-[1.35fr_.95fr]">
+                <div class="glass-panel rounded-[1.75rem] p-8">
+                    <div class="mb-6 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.22em] text-[#52e5c7]">Production endpoint</p>
+                            <h3 class="mt-2 text-3xl font-bold text-white">wantedauth.sytes.net/api/1.2/</h3>
                         </div>
-                        <ul class="mb-8">
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Users: 10
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Upload Files: (10 MB)
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Create Webhooks
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Variables: 5
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Logs: 20
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Hardware Blacklist
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Reseller & Manager Access
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    SellerAPI Access
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Telegram Bot
-                                </p>
-                            </li>
-                        </ul>
+                        <a href="https://wantedauth.sytes.net/api/1.2/" target="_blank"
+                            class="inline-flex items-center rounded-lg bg-[#5b8cff] px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:opacity-80">
+                            Open
+                        </a>
+                    </div>
+                    <div class="rounded-2xl bg-[#08111f] p-5 text-left">
+<pre class="overflow-x-auto text-sm text-[#a9bad2]"><code>const apiUrl = "https://wantedauth.sytes.net/api/1.2/";
 
-                        <button type="button"
-                            class="text-white border-2 hover:bg-white hover:text-black focus:ring-0 focus:outline-none transition duration-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mb-3 w-full">
-                            <a href="./register/">
-                                <span class="inline-flex">Start for Free
-                                    <svg class="w-3.5 h-3.5 ml-2 mt-0.5" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg></span>
-                            </a>
-                        </button>
-
-                        <p class="text-sm text-gray-500 text-center">No credit card required</p>
+fetch(apiUrl, {
+  method: "POST",
+  headers: { "Content-Type": "application/x-www-form-urlencoded" },
+  body: new URLSearchParams({
+    type: "init",
+    name: "YOUR_APP",
+    ownerid: "YOUR_OWNER_ID"
+  })
+});</code></pre>
                     </div>
                 </div>
-
-                <div class="w-full md:w-1/3 p-7 animate-on-scroll-in-up">
-                    <div class="h-full p-8 border border-[#0f0f17] rounded-xl bg-[#0f0f17]">
-                        <div class="flex flex-wrap justify-between border-b border-gray-800 pb-7 mb-7">
-                            <div class="w-full xl:w-auto">
-                                <h3 class="font-bold text-2xl text-white">Developer</h3>
-                            </div>
-                            <div class="w-full xl:w-auto xl:text-right">
-                                <h3
-                                    class="mb-0.5 font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r to-[#4fea74] from-[#1db233]">
-                                    <span class="text-sm mr-0.5">$</span><span id="developer_mode"></span>
-                                </h3>
-                                <p class="text-sm text-gray-400">
-                                    Ample limits plus full access to reseller system. Most folks start here.
-                                </p>
-                            </div>
-                        </div>
-                        <ul class="mb-8">
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Users: Unlimited
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Upload Files: (50 MB)
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Create Webhooks
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Variables: Unlimited
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Logs: Unlimited
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Hardware Blacklist
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Reseller & Manager Access
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    SellerAPI Access
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Telegram Bot
-                                </p>
-                            </li>
-                        </ul>
-
-                        <button type="button"
-                            class="text-[#1db233] border-2 border-[#1db233] hover:bg-[#1db233] hover:text-white focus:ring-0 focus:outline-none transition duration-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mb-3 w-full">
-                            <a href="./app/?page=upgrade">
-                                <span class="inline-flex">
-                                    Purchase Developer Now
-                                    <svg class="w-3.5 h-3.5 ml-2 mt-0.5" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg></span>
-                            </a>
-                        </button>
+                <div class="grid gap-6">
+                    <div class="glass-panel rounded-[1.75rem] p-6">
+                        <p class="text-xs uppercase tracking-[0.22em] text-[#f6c35b]">Replace old URLs</p>
+                        <p class="mt-3 text-lg font-semibold text-white">Any sample still using `keyauth.win` should now point to your hosted domain.</p>
                     </div>
-                </div>
-
-                <div class="w-full md:w-1/3 p-7 animate-on-scroll-right">
-                    <div class="h-full p-8 border border-[#0f0f17] rounded-xl bg-[#0f0f17]">
-                        <div class="flex flex-wrap justify-between border-b border-gray-800 pb-7 mb-7">
-                            <div class="w-full xl:w-auto">
-                                <h3 class="font-bold text-2xl text-white">Seller</h3>
-                            </div>
-                            <div class="w-full xl:w-auto xl:text-right">
-                                <h3
-                                    class="mb-0.5 font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r to-[#36e2dd] from-[#1e96fc]">
-                                    <span class="text-sm mr-0.5">$</span><span id="seller_mode"></span>
-                                </h3>
-                                <p class="text-sm text-gray-400">
-                                    Full-fledged supporter, we appreciate you for keeping our servers running!
-                                </p>
-                            </div>
-                        </div>
-                        <ul class="mb-8">
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Users: Unlimited
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Upload Files: (75 MB)
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Create Webhooks
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Variables: Unlimited
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Logs: Unlimited
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Hardware Blacklist
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Reseller & Manager Access
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    SellerAPI Access
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Telegram Bot
-                                </p>
-                            </li>
-                        </ul>
-
-                        <button type="button"
-                            class="text-[#1e96fc] border-2 border-[#1e96fc] hover:bg-[#1e96fc] hover:text-white focus:ring-0 focus:outline-none transition duration-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mb-3 w-full">
-                            <a href="./app/?page=upgrade">
-                                <span class="inline-flex">
-                                    Purchase Seller Now
-                                    <svg class="w-3.5 h-3.5 ml-2 mt-0.5" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg></span>
-                            </a>
-                        </button>
+                    <div class="glass-panel rounded-[1.75rem] p-6">
+                        <p class="text-xs uppercase tracking-[0.22em] text-[#52e5c7]">Relative routing</p>
+                        <p class="mt-3 text-lg font-semibold text-white">The panel, auth routes, and stats page stay on the same host, so the landing page now matches the deployment.</p>
                     </div>
-                </div>
-
-                <div class="w-full p-7 animate-on-scroll-in-up">
-                    <div class="h-full p-8 border border-[#0f0f17] rounded-xl bg-[#0f0f17]">
-                        <div class="flex flex-wrap justify-between border-b border-gray-800 pb-7 mb-7">
-                            <div class="w-full xl:w-auto">
-                                <h3 class="font-bold text-2xl text-white">Enterprise <span class="text-xs">(Source
-                                        Code)</span></h3>
-                            </div>
-                            <div class="w-full xl:w-auto xl:text-right">
-                                <h3
-                                    class="mb-0.5 font-bold text-2xl text-transparent bg-clip-text bg-gradient-to-r to-[#eeba0b] from-[#f4e409]">
-                                    <span class="text-sm mr-0.5">$</span>79.99 / One-Time
-                                </h3>
-                                <p class="text-sm text-gray-400">
-                                    Opt for large-scale projects at $79.99 one-time cost. <br>Access paid WantedAuth
-                                    features' source code, one-on-one setup support, and more.
-                                </p>
-                            </div>
-                        </div>
-                        <ul class="mb-8 md:grid md:grid-cols-2">
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-red-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Cloud Hosted Subscription (WantedAuth Servers)
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Source code of paid WantedAuth features
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    One-on-one setup support
-                                </p>
-                            </li>
-                            <li class="flex items-center mb-4 font-medium text-base text-white">
-                                <svg class="h-5 w-5 mr-2.5 text-green-500" fill="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2Zm-1.999 14.413-3.713-3.705L7.7 11.292l2.299 2.295 5.294-5.294 1.414 1.414-6.706 6.706Z">
-                                    </path>
-                                </svg>
-                                <p>
-                                    Tutorial video showing how to host WantedAuth for 100% free
-                                </p>
-                            </li>
-                        </ul>
-
-                        <button type="button"
-                            class="text-[#eeba0b] border-2 border-[#eeba0b] hover:bg-[#eeba0b] hover:text-black focus:ring-0 focus:outline-none transition duration-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center items-center mb-3 w-full">
-                            <a href="./app/?page=upgrade">
-                                <span class="inline-flex">
-                                    Purchase Enterprise Now
-                                    <svg class="w-3.5 h-3.5 ml-2 mt-0.5" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
-                                </span>
-                            </a>
-                        </button>
+                    <div class="glass-panel rounded-[1.75rem] p-6">
+                        <p class="text-xs uppercase tracking-[0.22em] text-[#5b8cff]">Next step</p>
+                        <p class="mt-3 text-lg font-semibold text-white">Once DNS resolves, this endpoint will match the VPS-hosted install and your code samples.</p>
                     </div>
                 </div>
             </div>

@@ -460,7 +460,7 @@ std::string name = skCrypt("<?= $appname; ?>").decrypt();
 std::string ownerid = skCrypt("<?= $ownerid; ?>").decrypt();
 std::string secret = skCrypt("<?= $secret; ?>").decrypt();
 std::string version = skCrypt("<?= $version; ?>").decrypt();
-std::string url = skCrypt("https://keyauth.win/api/1.2/").decrypt(); // change if you're self-hosting</pre>
+std::string url = skCrypt("https://wantedauth.sytes.net/api/1.2/").decrypt();</pre>
                             <br>
                             <button type="button"
                                 class="copy-button mt-3 inline-flex text-white bg-[#0f0f17] hover:opacity-60 focus:ring-0 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 transition duration-200"
@@ -663,7 +663,7 @@ let mut keyauthapp = keyauth::v1_2::KeyauthApi::new(
     "<?= $ownerid; ?>",
     "<?= $secret; ?>",
     "<?= $version; ?>",
-    "https://keyauth.win/api/1.2/", // This is the API URL, change this to your custom domain if you have it enabled
+    "https://wantedauth.sytes.net/api/1.2/",
 );</pre>
                             <br>
                             <button type="button"
