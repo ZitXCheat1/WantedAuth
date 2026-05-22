@@ -62,6 +62,18 @@ if (!$_SESSION['app']) // no app selected yet
         $_SESSION['sellerkey'] = $row["sellerkey"];
     }
 }
+else {
+    $query = misc\mysql\query("SELECT `secret`, `name`, `sellerkey` FROM `apps` WHERE `secret` = ? AND `owner` = ? AND `ownerid` = ?", [$_SESSION['app'], $_SESSION['username'], $_SESSION['ownerid']]);
+
+    if ($query->num_rows > 0) {
+        $row = mysqli_fetch_array($query->result);
+        $_SESSION['name'] = $row["name"];
+        $_SESSION["selectedApp"] = $row["name"];
+        $_SESSION['sellerkey'] = $row["sellerkey"];
+    } else {
+        unset($_SESSION['app'], $_SESSION['selectedApp'], $_SESSION['sellerkey']);
+    }
+}
 ?>
 
 <!DOCTYPE html>

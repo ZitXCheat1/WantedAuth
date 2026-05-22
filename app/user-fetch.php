@@ -20,7 +20,7 @@ if ($_SESSION['role'] == "Reseller") {
 }
 
 if (!isset($_SESSION['app'])) {
-        dashboard\primary\error("Application not selected");
+        http_response_code(400);
         die("Application not selected.");
 }
 
@@ -45,7 +45,14 @@ if (isset($_POST['draw'])) {
                 die("Column sort order is not whitelisted.");
         }
 
+        $totalQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `users` WHERE `app` = ?", [$_SESSION['app']]);
+        $totalRecords = (int) mysqli_fetch_assoc($totalQuery->result)['allcount'];
+
+        $filteredRecords = $totalRecords;
+
         if (!is_null($searchValue)) {
+                $countQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `users` WHERE (`username` like ? or `hwid` like ? or `ip` like ? or `banned` like ? ) and `app` = ?", ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app']]);
+                $filteredRecords = (int) mysqli_fetch_assoc($countQuery->result)['allcount'];
                 $query = misc\mysql\query("select * from `users` WHERE (`username` like ? or `hwid` like ? or `ip` like ? or `banned` like ? ) and app = ? order by `" . $columnName . "` " . $columnSortOrder . " limit " . $row . "," . $rowperpage, ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app']]);
         }
         else {
@@ -76,11 +83,12 @@ if (isset($_POST['draw'])) {
                 }
 
                 $data[] = array(
+                        "checkbox" => "",
                         "username" => $row['username'],
                         "hwid" => '<span class="blur-sm hover:blur-none">' . ($row['hwid'] ?? 'N/A') . '</span>',
                         "ip" => '<span class="blur-sm hover:blur-none">' . ($row['ip'] ?? 'N/A') . '</span>',
                         "createdate" => '<div id="' . $row['username'] . '-createdate"><script>document.getElementById("' . $row['username'] . '-createdate").textContent=convertTimestamp(' . $row["createdate"] . ');</script></div>',
-                        "lastlogin" => '<div id="' . $row['username'] . '-lastlogin"><script>document.getElementById("' . $row['username'] . '-lastlogin").textContent=convertTimestamp(' . $row["lastlogin"] . ');</script></div>',
+                        "lastlogin" => is_null($row["lastlogin"]) ? 'N/A' : '<div id="' . $row['username'] . '-lastlogin"><script>document.getElementById("' . $row['username'] . '-lastlogin").textContent=convertTimestamp(' . $row["lastlogin"] . ');</script></div>',
                         "banned" => $banned,
                         "actions" => '<tr><form method="POST">
                         <td>
@@ -137,6 +145,8 @@ if (isset($_POST['draw'])) {
         ## Response
         $response = array(
                 "draw" => $draw,
+                "recordsTotal" => $totalRecords,
+                "recordsFiltered" => $filteredRecords,
                 "aaData" => $data
         );
 

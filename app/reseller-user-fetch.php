@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['app'])) {
-        dashboard\primary\error("Application not selected");
+        http_response_code(400);
         die("Application not selected.");
 }
 
@@ -41,7 +41,14 @@ if (isset($_POST['draw'])) {
                 die("Column sort order is not whitelisted.");
         }
 
+        $totalQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `users` WHERE `app` = ? AND `owner` = ?", [$_SESSION['app'], $_SESSION['username']]);
+        $totalRecords = (int) mysqli_fetch_assoc($totalQuery->result)['allcount'];
+
+        $filteredRecords = $totalRecords;
+
         if (!is_null($searchValue)) {
+                $countQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `users` WHERE (`username` like ? or `hwid` like ? or `ip` like ? or `banned` like ? ) and `app` = ? and `owner` = ?", ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app'], $_SESSION['username']]);
+                $filteredRecords = (int) mysqli_fetch_assoc($countQuery->result)['allcount'];
                 $query = misc\mysql\query("select * from `users` WHERE (`username` like ? or `hwid` like ? or `ip` like ? or `banned` like ? ) and app = ? and owner = ? order by `" . $columnName . "` " . $columnSortOrder . " limit " . $row . "," . $rowperpage, ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app'], $_SESSION['username']]);
         }
         else {
@@ -62,10 +69,10 @@ if (isset($_POST['draw'])) {
 
                 $data[] = array(
                         "username" => $row['username'],
-                        "hwid" => '<span class="blur-sm hover:blur-none">' . $row['hwid'] ?? 'N/A',
-                        "ip" => '<span class="blur-sm hover:blur-none">' . $row['ip'] ?? 'N/A',
+                        "hwid" => '<span class="blur-sm hover:blur-none">' . ($row['hwid'] ?? 'N/A') . '</span>',
+                        "ip" => '<span class="blur-sm hover:blur-none">' . ($row['ip'] ?? 'N/A') . '</span>',
                         "createdate" => '<div id="' . $row['username'] . '-createdate"><script>document.getElementById("' . $row['username'] . '-createdate").textContent=convertTimestamp(' . $row["createdate"] . ');</script></div>',
-                        "lastlogin" => '<div id="' . $row['username'] . '-lastlogin"><script>document.getElementById("' . $row['username'] . '-lastlogin").textContent=convertTimestamp(' . $row["lastlogin"] . ');</script></div>',
+                        "lastlogin" => is_null($row["lastlogin"]) ? 'N/A' : '<div id="' . $row['username'] . '-lastlogin"><script>document.getElementById("' . $row['username'] . '-lastlogin").textContent=convertTimestamp(' . $row["lastlogin"] . ');</script></div>',
                         "banned" => $row['banned'] ?? 'N/A',
                         "actions" => '
                         <form method="POST" style="' . $MarginManager . '">
@@ -117,6 +124,8 @@ if (isset($_POST['draw'])) {
         ## Response
         $response = array(
                 "draw" => intval($draw),
+                "recordsTotal" => $totalRecords,
+                "recordsFiltered" => $filteredRecords,
                 "aaData" => $data
         );
 

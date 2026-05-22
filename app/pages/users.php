@@ -1047,6 +1047,7 @@ if (isset($_POST['edituser'])) {
                         <table id="kt_datatable_users" class="w-full text-sm text-left text-white">
                             <thead>
                                 <tr class="fw-bolder fs-6 text-blue-700 px-7">
+                                    <th class="px-6 py-3"></th>
                                     <th class="px-6 py-3">Username</th>
                                     <th class="px-6 py-3">HWID</th>
                                     <th class="px-6 py-3">IP</th>
