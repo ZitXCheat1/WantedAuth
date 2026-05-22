@@ -331,10 +331,10 @@ function add($username, $sub, $expiry, $secret = null, $password = null)
                 return 'date_past';
         }
 
-        $query = mysql\query("INSERT INTO `subs` (`user`, `subscription`, `expiry`, `app`) VALUES (?, ?, ?, ?)", [$username, $sub, $expiry, $secret ?? $_SESSION['app']]);
+        mysql\query("INSERT INTO `subs` (`user`, `subscription`, `expiry`, `app`) VALUES (?, ?, ?, ?)", [$username, $sub, $expiry, $secret ?? $_SESSION['app']]);
         $query = mysql\query("INSERT INTO `users` (`username`, `password`, `hwid`, `app`,`owner`,`createdate`) VALUES (?, NULLIF(?, ''), NULL, ?, ?, ?);", [$username, $password, $secret ?? $_SESSION['app'], $_SESSION['username'] ?? 'SellerAPI', time()]);
         if ($query->affected_rows > 0) {
-                if ($_SESSION['role'] == "seller" || !is_null($secret)) {
+                if (isset($_SESSION['role']) && ($_SESSION['role'] == "seller" || !is_null($secret))) {
                         cache\purge('WantedAuthUsernames:' . ($secret ?? $_SESSION['app']));
                         cache\purge('WantedAuthUsers:' . ($secret ?? $_SESSION['app']));
                         cache\purge('WantedAuthUser:' . ($secret ?? $_SESSION['app']) . ':' . $username);
@@ -342,6 +342,7 @@ function add($username, $sub, $expiry, $secret = null, $password = null)
                 if (token\ModifyUserToken($username, "User", null, null, $secret ?? $_SESSION["app"]) === "failed") {
                         return "failure";
                 }
+                return 'success';
         } else {
                 return 'failure';
         }

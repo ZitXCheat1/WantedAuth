@@ -64,8 +64,9 @@ function query($query, $args = [], $types = null)
         $stmt->execute();
 
         $query = new \stdClass();
-        $query->result = $stmt->get_result();
-        $query->num_rows = $query->result->num_rows;
+        $result = $stmt->get_result();
+        $query->result = $result ?: null;
+        $query->num_rows = $result ? $result->num_rows : 0;
         $query->affected_rows = $stmt->affected_rows;
 
         $stmt->close();
