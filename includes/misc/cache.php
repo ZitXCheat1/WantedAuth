@@ -5,10 +5,24 @@ namespace misc\cache;
 use misc\mysql;
 use api\shared;
 
-function fetch($redisKey, $sqlQuery, $args = [], $multiRowed, $expiry = null, $types = null)
+function fetch($redisKey, $sqlQuery, $args = [], $multiRowed = 0, $expiry = null, $types = null)
 {
         global $redis;
         include_once (($_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/panel" || $_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/api") ? "/usr/share/nginx/html" : $_SERVER['DOCUMENT_ROOT']) . '/includes/redis.php'; // create connection with redis
+        if (!$redis) {
+                $query = mysql\query($sqlQuery, $args, $types);
+                if ($query->num_rows < 1) {
+                        return 'not_found';
+                }
+                if ($multiRowed) {
+                        $data = [];
+                        while ($r = mysqli_fetch_assoc($query->result)) {
+                                $data[] = $r;
+                        }
+                        return $data;
+                }
+                return mysqli_fetch_array($query->result);
+        }
         $redisKey = strtolower($redisKey); // redis is case-insensitive
         $data = $redis->get($redisKey);
         if (!$data) {
@@ -82,6 +96,9 @@ function purge($redisKey) // delete key from Redis cache (typically called when 
 
         global $redis;
         include_once (($_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/panel" || $_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/api") ? "/usr/share/nginx/html" : $_SERVER['DOCUMENT_ROOT']) . '/includes/redis.php'; // create connection with Redis
+        if (!$redis) {
+                return;
+        }
         $redis->del($redisKey);
 }
 
@@ -111,6 +128,9 @@ function purgePattern($redisKey) // purge all data starting with, ending with, o
         
         global $redis;
         include_once (($_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/panel" || $_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/api") ? "/usr/share/nginx/html" : $_SERVER['DOCUMENT_ROOT']) . '/includes/redis.php'; // create connection with Redis
+        if (!$redis) {
+                return;
+        }
         $redis->delete($redis->keys($redisKey . '*'));
 }
 
@@ -118,6 +138,9 @@ function rateLimit($redisKey, $amount, $expiry, $limit) // rate limiting with Re
 {
         global $redis;
         include_once (($_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/panel" || $_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/api") ? "/usr/share/nginx/html" : $_SERVER['DOCUMENT_ROOT']) . '/includes/redis.php'; // create connection with Redis
+        if (!$redis) {
+                return false;
+        }
         $redisKey = strtolower($redisKey); // redis is case-insensitive
         $data = $redis->get($redisKey);
         if (!$data) {
@@ -140,6 +163,9 @@ function rateLimit($redisKey, $amount, $expiry, $limit) // rate limiting with Re
 function select($redisKey) {
         global $redis;
         include_once (($_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/panel" || $_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/api") ? "/usr/share/nginx/html" : $_SERVER['DOCUMENT_ROOT']) . '/includes/redis.php'; // create connection with Redis
+        if (!$redis) {
+                return null;
+        }
         $redisKey = strtolower($redisKey); // redis is case-insensitive
         return $redis->get($redisKey);
 }
@@ -168,12 +194,18 @@ function insert($redisKey, $value, $expiry) {
 
         global $redis;
         include_once (($_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/panel" || $_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/api") ? "/usr/share/nginx/html" : $_SERVER['DOCUMENT_ROOT']) . '/includes/redis.php'; // create connection with Redis
+        if (!$redis) {
+                return;
+        }
         $redis->set($redisKey, $value, $expiry);
 }
 
 function update($redisKey, ...$replacements) {
         global $redis;
         include_once (($_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/panel" || $_SERVER['DOCUMENT_ROOT'] == "/usr/share/nginx/html/api") ? "/usr/share/nginx/html" : $_SERVER['DOCUMENT_ROOT']) . '/includes/redis.php'; // create connection with Redis
+        if (!$redis) {
+                return false;
+        }
         $redisKey = strtolower($redisKey); // redis is case-insensitive
         
         $data = unserialize($redis->get($redisKey));
