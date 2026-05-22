@@ -103,6 +103,14 @@ $istwofa = $_SESSION["temp_istwofamode"] ? true : false;
         .to-blue-600 {
             --tw-gradient-to: #c51515 var(--tw-gradient-to-position) !important;
         }
+
+        .nav-logo {
+            display: block;
+            width: auto;
+            height: 42px !important;
+            max-width: 180px;
+            object-fit: contain;
+        }
     </style>
 
 </head>
@@ -112,7 +120,7 @@ $istwofa = $_SESSION["temp_istwofamode"] ? true : false;
         <nav class="border-gray-200 px-4 lg:px-6 py-2.5 mb-14">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                 <a href="../" class="flex items-center">
-                    <img src="/wantedauth-logo.png" class="mr-3 h-10 w-auto" alt="WantedAuth Logo" />
+                    <img src="/wantedauth-logo.png" class="mr-3 nav-logo" alt="WantedAuth Logo" />
                 </a>
                 <div class="flex items-center lg:order-2">
                     <a href="../login" class="text-white focus:ring-0 font-medium rounded-lg text-sm px-4 py-2 lg:px-5 lg:py-2.5 mr-2 hover:opacity-60 transition duration-200 focus:outline-none focus:ring-gray-800">
