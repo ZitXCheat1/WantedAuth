@@ -23,7 +23,7 @@ if ($_SESSION['role'] == "Reseller") {
 }
 
 if (!isset($_SESSION['app'])) {
-        dashboard\primary\error("Application not selected");
+        http_response_code(400);
         die("Application not selected.");
 }
 
@@ -48,7 +48,14 @@ if (isset($_POST['draw'])) {
                 die("Column sort order is not whitelisted.");
         }
 
+        $totalQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `keys` WHERE `app` = ?", [$_SESSION['app']]);
+        $totalRecords = (int) mysqli_fetch_assoc($totalQuery->result)['allcount'];
+
+        $filteredRecords = $totalRecords;
+
         if (!is_null($searchValue)) {
+                $countQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `keys` WHERE (`key` like ? or `note` like ? or `genby` like ? or `usedby` like ? ) and `app` = ?", ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app']]);
+                $filteredRecords = (int) mysqli_fetch_assoc($countQuery->result)['allcount'];
                 $query = misc\mysql\query("select * from `keys` WHERE (`key` like ? or `note` like ? or `genby` like ? or `usedby` like ? ) and app = ? order by `" . $columnName . "` " . $columnSortOrder . " limit " . $row . "," . $rowperpage, ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app']]);
         }
         else {
@@ -75,6 +82,7 @@ if (isset($_POST['draw'])) {
                 }
 
                 $data[] = array(
+                        "checkbox" => "",
                         "key" => $row['key'],
                         "gendate" => '<div id="' . $row['key'] . '-gendate"><script>document.getElementById("' . $row['key'] . '-gendate").textContent=convertTimestamp(' . $row["gendate"] . ');</script></div>',
                         "genby" => $row['genby'],
@@ -122,6 +130,8 @@ if (isset($_POST['draw'])) {
         ## Response
         $response = array(
                 "draw" => intval($draw),
+                "recordsTotal" => $totalRecords,
+                "recordsFiltered" => $filteredRecords,
                 "aaData" => $data
         );
 

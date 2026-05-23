@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 if (!isset($_SESSION['app'])) {
-        dashboard\primary\error("Application not selected");
+        http_response_code(400);
         die("Application not selected.");
 }
 
@@ -41,7 +41,14 @@ if (isset($_POST['draw'])) {
                 die("Column sort order is not whitelisted.");
         }
 
+        $totalQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `keys` WHERE `app` = ? AND `genby` = ?", [$_SESSION['app'], $_SESSION['username']]);
+        $totalRecords = (int) mysqli_fetch_assoc($totalQuery->result)['allcount'];
+
+        $filteredRecords = $totalRecords;
+
         if (!is_null($searchValue)) {
+                $countQuery = misc\mysql\query("SELECT COUNT(1) AS allcount FROM `keys` WHERE (`key` like ? or `note` like ? or `usedby` like ? ) and `app` = ? and `genby` = ?", ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app'], $_SESSION['username']]);
+                $filteredRecords = (int) mysqli_fetch_assoc($countQuery->result)['allcount'];
                 $query = misc\mysql\query("select * from `keys` WHERE (`key` like ? or `note` like ? or `usedby` like ? ) and app = ? and genby = ? order by `" . $columnName . "` " . $columnSortOrder . " limit " . $row . "," . $rowperpage, ["%" . $searchValue . "%", "%" . $searchValue . "%", "%" . $searchValue . "%", $_SESSION['app'], $_SESSION['username']]);
         }
         else {
@@ -101,6 +108,8 @@ if (isset($_POST['draw'])) {
         ## Response
         $response = array(
                 "draw" => intval($draw),
+                "recordsTotal" => $totalRecords,
+                "recordsFiltered" => $filteredRecords,
                 "aaData" => $data
         );
 
